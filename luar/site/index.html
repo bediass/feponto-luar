@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="canonical" href="https://luaracessoriosbh.com.br/" />
+<title>Luar Acessórios | Prata 925 que combina com você</title>
+<meta name="description" content="Joias em prata 925 cuidadosamente selecionadas para destacar sua beleza: colares, brincos, anéis e pulseiras. Frete grátis acima de R$599, até 8x sem juros e atendimento pelo WhatsApp." />
+<!-- Compartilhamento (WhatsApp, Instagram, Facebook, X). O crawler do Meta NAO
+     executa JavaScript: o que vale e o que esta escrito aqui no HTML. -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Luar Acessórios" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:url" content="https://luaracessoriosbh.com.br/" />
+<meta property="og:title" content="Luar Acessórios | Prata 925 que combina com você" />
+<!-- Texto próprio para compartilhamento, sem a parte de frete e parcelamento:
+     no cartão do WhatsApp só aparecem ~2 linhas, e ali vale a frase da marca.
+     A `description` (acima) é a do Google, que aproveita a informação extra. -->
+<meta property="og:description" content="Joias em prata 925 cuidadosamente selecionadas para destacar sua beleza, com elegância e um brilho que acompanha você em todos os momentos." />
+<meta property="og:image" content="https://luaracessoriosbh.com.br/assets/og-luar.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Anel, pingente, colar e brincos em prata 925 com banho de ouro sobre cetim" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/estilo.css" />
+<!-- Medição de audiência (GA4). No <head> e não no fim do <body> de
+     propósito: quem entra e sai em 2 segundos precisa ser contado, e o
+     `defer` garante que isso não atrasa a renderização. O ID mora só
+     dentro do analytics.js. -->
+<script src="assets/analytics.js" defer></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+<!-- ============ Navbar ============ -->
+<nav class="nav" id="nav" aria-label="Navegação principal">
+  <div class="wrap nav__inner">
+    <!-- logo que aparece à esquerda quando rola -->
+    <a class="nav__logo nav__logo--left" href="index.html" aria-hidden="true" tabindex="-1">
+      <img src="assets/logo-luar.png" alt="" />
+    </a>
+
+    <div class="nav__left">
+      <button class="icon-btn nav__toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="loja.html?ordenar=novidades">Novidades</a>
+        <a href="loja.html">Produtos</a>
+        <a href="kits.html">Kits</a>
+      </div>
+    </div>
+
+    <!-- logo central no topo (branca sobre a hero; dourada quando vira barrinha) -->
+    <a class="nav__logo nav__logo--center" href="index.html" aria-label="Luar Acessórios, início">
+      <img class="logo-white" src="assets/logo-luar-branco.png" alt="Luar Acessórios" />
+      <img class="logo-gold" src="assets/logo-luar.png" alt="" aria-hidden="true" />
+    </a>
+
+    <div class="nav__right">
+      <form class="nav__search" role="search" data-search-form>
+        <label class="sr-only" for="buscaTopo">Buscar produtos</label>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        <input id="buscaTopo" name="q" type="search" placeholder="Buscar peças…" autocomplete="off" />
+      </form>
+      <button class="icon-btn" data-cart-open aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5.5 8h13l-1 12.2a1 1 0 0 1-1 .8H7.5a1 1 0 0 1-1-.8L5.5 8Z"/><path d="M9 8V6.2a3 3 0 0 1 6 0V8"/></svg>
+        <span class="cart-count" data-cart-count style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ Menu mobile ============ -->
+<div class="mobile-menu" id="mobileMenu">
+  <form class="mobile-search" role="search" data-search-form>
+    <label class="sr-only" for="buscaMob">Buscar produtos</label>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+    <input id="buscaMob" name="q" type="search" placeholder="Buscar peças…" autocomplete="off" />
+  </form>
+  <a href="index.html">Home</a>
+  <a href="loja.html?ordenar=novidades">Novidades</a>
+  <a href="loja.html">Produtos</a>
+  <a href="kits.html">Kits</a>
+  <a class="btn btn--gold btn--block" data-cart-open href="#">Ver meu carrinho</a>
+</div>
+
+<main id="main">
+
+  <!-- ============ Hero ============ -->
+  <header class="hero" id="topo">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <div class="hero__content reveal">
+        <span class="eyebrow hero__eyebrow">Prata 925 · Joias para todos os dias</span>
+        <h1 class="hero__title">Seu brilho, em cada <em>detalhe.</em></h1>
+        <p class="hero__lead">Joias em Prata 925 cuidadosamente selecionadas para destacar sua beleza com elegância, qualidade e um brilho que acompanha você em todos os momentos.</p>
+        <div class="hero__actions">
+          <a class="btn btn--gold btn--lg" href="loja.html">Explorar a loja</a>
+          <a class="btn btn--outline btn--lg" href="kits.html">Ver kits</a>
+        </div>
+        <ul class="hero__trust">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg> Frete grátis acima de R$599</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg> Pix e cartão em até 8x</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 6.5-7 9-4-2.5-7-5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg> Pedido pelo WhatsApp</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ Faixa de vantagens (marquee contínuo) ============ -->
+  <section class="marquee-band" aria-label="Vantagens de comprar na Luar">
+    <div class="marquee">
+      <div class="marquee__track" id="marqueeTrack">
+        <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg> Frete grátis acima de R$599</span>
+        <span class="marquee__dot" aria-hidden="true"></span>
+        <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg> Pix e cartão em até 8x sem juros</span>
+        <span class="marquee__dot" aria-hidden="true"></span>
+        <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7M21 5v4h-4"/></svg> Devolução em até 7 dias</span>
+        <span class="marquee__dot" aria-hidden="true"></span>
+        <span class="marquee__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 6.5-7 9-4-2.5-7-5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg> Pedido e pagamento pelo WhatsApp</span>
+        <span class="marquee__dot" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Novidades (catálogo ao vivo) ============ -->
+  <section class="section" id="novidades">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow reveal">Recém-chegadas</span>
+          <h2 class="sec-title reveal">Novidades</h2>
+          <p class="sec-sub reveal">As últimas peças que entraram na loja.</p>
+        </div>
+        <a class="btn btn--ghost reveal" href="loja.html?ordenar=novidades">Ver todas →</a>
+      </div>
+
+      <div class="rail">
+        <button class="rail__nav rail__nav--prev" id="novPrev" type="button" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="grid rail__track" id="railNovidades" aria-live="polite">
+          <!-- cards injetados; skeletons enquanto carrega -->
+          <div class="card card--skeleton"><div class="card__media skeleton"></div><div class="sk-line skeleton" style="width:50%"></div><div class="sk-line skeleton" style="width:80%"></div></div>
+          <div class="card card--skeleton"><div class="card__media skeleton"></div><div class="sk-line skeleton" style="width:50%"></div><div class="sk-line skeleton" style="width:80%"></div></div>
+          <div class="card card--skeleton"><div class="card__media skeleton"></div><div class="sk-line skeleton" style="width:50%"></div><div class="sk-line skeleton" style="width:80%"></div></div>
+          <div class="card card--skeleton"><div class="card__media skeleton"></div><div class="sk-line skeleton" style="width:50%"></div><div class="sk-line skeleton" style="width:80%"></div></div>
+        </div>
+        <button class="rail__nav rail__nav--next" id="novNext" type="button" aria-label="Próxima"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Comunidade (grupo WhatsApp) ============ -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="cta-band cta-band--wa reveal">
+        <h2>Novidades e <em>ofertas</em> em primeira mão</h2>
+        <p>Entre no grupo da Luar e receba os lançamentos, peças que voltaram ao estoque e promoções antes de todo mundo.</p>
+        <div class="cta-band__actions">
+          <a class="btn btn--gold btn--lg" data-grupo href="#">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Entrar no grupo
+          </a>
+        </div>
+        <p class="cta-band__fine">Sem spam, só novidade boa. Você sai quando quiser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Kits / combos (AOV) ============ -->
+  <!-- Nasce escondida e só aparece se vier kit do banco. Se a Luana não tiver
+       nenhum kit em destaque (ou o banco falhar), a home não mostra um título
+       "Kits para combinar" sobre um vazio. -->
+  <section class="section section--alt" id="kits" hidden>
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow reveal">Monte seu look</span>
+          <h2 class="sec-title reveal">Kits para combinar</h2>
+          <p class="sec-sub reveal">Kits pensados para unir harmonia, elegância, e praticidade em uma única escolha</p>
+        </div>
+      </div>
+      <!-- Os 3 kits em destaque vêm do banco (view `kits_site`, ordenados por
+           `destaque_ordem`). A Luana escolhe quais são na tela Kits do ERP.
+           Enquanto carrega, a seção inteira fica escondida — ver pagina-index.js. -->
+      <div class="kits" id="kitsDestaque"></div>
+      <div class="sec-foot">
+        <a class="btn btn--outline reveal" href="kits.html">Ver todos os kits →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/logo-luar.png" alt="Luar Acessórios" />
+        <p>Joias em Prata 925 cuidadosamente selecionadas para destacar sua beleza com elegância, qualidade e um brilho que acompanha você em todos os momentos.</p>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/luaracessoriosbh" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" data-wa data-msg="Olá! Vim pelo site da Luar." aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Loja</h4>
+        <a href="loja.html">Todos os produtos</a>
+        <a href="loja.html?cat=Colares">Colares</a>
+        <a href="loja.html?cat=Brincos">Brincos</a>
+        <a href="loja.html?ordenar=novidades">Novidades</a>
+        <a href="kits.html">Kits</a>
+      </div>
+      <div class="footer__col">
+        <h4>Ajuda</h4>
+        <a href="#">Como comprar</a>
+        <a href="devolucoes.html">Devoluções</a>
+        <a href="garantia.html">Garantia</a>
+        <a href="#" data-wa data-msg="Olá! Queria saber o prazo de entrega de um pedido.">Prazo de entrega</a>
+        <a href="#" data-wa data-msg="Olá! Preciso de ajuda com um pedido que fiz.">Ajuda com meu pedido</a>
+        <a href="#" data-wa data-msg="Olá! Preciso de ajuda com um pedido.">Fale conosco</a>
+      </div>
+      <div class="footer__col">
+        <h4>A Luar</h4>
+        <a href="sobre.html">Sobre nós</a>
+        <a href="cuidados.html">Cuidados com a prata</a>
+        <a href="#">Política de privacidade</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© <span data-year>2026</span> Luar Acessórios.</p>
+      <div class="footer__pay"><span>Formas de pagamento:</span><span class="chip-pay chip-pay--logo"><img src="assets/pay-pix.svg" alt="Pix" width="40" height="14" loading="lazy" /></span><span class="chip-pay chip-pay--logo"><img src="assets/pay-visa.svg" alt="Visa" width="40" height="13" loading="lazy" /></span><span class="chip-pay chip-pay--logo"><img src="assets/pay-mastercard.svg" alt="Mastercard" width="31" height="24" loading="lazy" /></span><span class="chip-pay chip-pay--logo"><img src="assets/pay-elo.svg" alt="Elo" width="40" height="19" loading="lazy" /></span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp flutuante (oculto até ter número) -->
+<a class="wa-float" data-wa data-msg="Olá! Vim pelo site da Luar Acessórios." aria-label="Falar no WhatsApp" style="display:none">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/loja.js"></script>
+<script src="assets/pagina-index.js"></script>
+</body>
+</html>

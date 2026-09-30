@@ -1,0 +1,42 @@
+# Headers de segurança da loja Luar Acessórios — item 12 do SEGURANCA-PENTEST.md.
+# Formato lido pelo Cloudflare Pages (e pelo Netlify) sem nenhuma alteração.
+#
+# Origens liberadas e por quê:
+#   cdn.jsdelivr.net              -> cliente supabase-js (script)
+#   fonts.googleapis / gstatic    -> Google Fonts
+#   fzdmjdyfeofypqhkltol.supabase -> catálogo, Edge Function de atendimento e fotos
+#   www.googletagmanager.com      -> gtag.js do Google Analytics 4 (script)
+#   *.google-analytics.com        -> para onde o evento é enviado (connect + img)
+#   *.analytics.google.com        -> idem, o endpoint regional do GA4
+#
+# Sobre o GA4 (11/08/2026, `assets/analytics.js`): o trecho que o Google manda
+# colar tem um <script> INLINE, que este CSP bloqueia de propósito. Por isso a
+# configuração vive em assets/analytics.js e o gtag.js é carregado por ele.
+# As origens do Analytics entram em connect-src E em img-src porque o GA4 manda
+# o evento por sendBeacon quando pode e cai pra pixel de imagem quando não pode:
+# liberar só um dos dois faz a medição funcionar em um navegador e falhar noutro.
+#
+# Saíram em 31/07/2026, com o fim da compra online:
+#   viacep.com.br  -> era a busca de CEP do checkout
+#   Mercado Pago   -> nunca precisou de frame-src (o checkout redirecionava a
+#                     página inteira), e agora não existe mais checkout nenhum.
+# O pedido é fechado no WhatsApp, que é link externo (wa.me) e não passa por CSP
+# de conexão — por isso nada precisou entrar no lugar.
+#
+# Ao ligar o Turnstile (item 9), adicionar https://challenges.cloudflare.com
+# em script-src E em frame-src.
+#
+# script-src NÃO tem 'unsafe-inline': todo JS das páginas foi movido para
+# assets/pagina-*.js. Se você voltar a escrever <script> direto no HTML, a
+# página para de funcionar — é proposital. Crie um .js e referencie por src.
+#
+# style-src mantém 'unsafe-inline' porque as páginas ainda têm atributos
+# style="..." e blocos <style>. Risco muito menor que script inline.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://fzdmjdyfeofypqhkltol.supabase.co https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://fzdmjdyfeofypqhkltol.supabase.co wss://fzdmjdyfeofypqhkltol.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0a0a" />
+<title>Página não encontrada — Fê Ponto Joias</title>
+<meta name="description" content="A página que você procurou não existe ou foi movida. Volte ao início ou explore a coleção da Fê Ponto Joias." />
+<meta name="robots" content="noindex, follow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* Tokens espelhados de assets/estilo.css — a 404 é autossuficiente de propósito:
+     não depende do JS de nav/catálogo, que precisa do Supabase pra montar. */
+  :root {
+    --black:  #0a0a0a;
+    --white:  #f5f3ef;
+    --silver: #b9b6ae;
+    --accent: #b0b5b9;
+    --line:   rgba(245, 243, 239, 0.18);
+    --font-display: "Cormorant Garamond", Georgia, serif;
+    --font-sans:    "Jost", "Helvetica Neue", Arial, sans-serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { color-scheme: dark; -webkit-text-size-adjust: 100%; }
+
+  body {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem clamp(1.25rem, 5vw, 4rem);
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main { max-width: 32rem; text-align: center; }
+
+  a { touch-action: manipulation; -webkit-tap-highlight-color: rgba(245, 243, 239, 0.12); }
+
+  /* O logo é um monograma vertical (181x399): dimensiona por altura, como na nav. */
+  .logo { display: inline-block; margin: 0 auto 3rem; color: var(--white); }
+  .logo img { height: 88px; width: auto; display: block; }
+
+  .codigo {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    margin-bottom: 1.25rem;
+    text-wrap: balance;
+  }
+
+  p {
+    color: var(--silver);
+    margin-bottom: 2.5rem;
+    text-wrap: pretty;
+  }
+
+  .acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 1.75rem;
+    border: 1px solid var(--line);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--white);
+    background: transparent;
+    transition: background-color 220ms var(--ease), border-color 220ms var(--ease), color 220ms var(--ease);
+  }
+
+  .btn--primario {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--black);
+  }
+
+  .btn:hover { border-color: var(--accent); }
+  .btn--primario:hover { background: var(--accent); border-color: var(--accent); color: var(--black); }
+
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+</style>
+<!-- Medição de audiência (GA4). No <head> e não no fim do <body> de
+     propósito: quem entra e sai em 2 segundos precisa ser contado, e o
+     `defer` garante que isso não atrasa a renderização. O ID mora só
+     dentro do analytics.js. -->
+<script src="assets/analytics.js" defer></script>
+</head>
+<body>
+
+<main>
+  <a class="logo" href="index.html" aria-label="Fê Ponto Joias — voltar ao início">
+    <img src="assets/logo.svg" alt="Fê Ponto Joias" width="181" height="399" fetchpriority="high" />
+  </a>
+
+  <p class="codigo">Erro 404</p>
+
+  <h1>Esta página não existe</h1>
+
+  <p>O endereço que você acessou não está mais disponível ou foi digitado de forma diferente. A coleção continua logo abaixo.</p>
+
+  <div class="acoes">
+    <a class="btn btn--primario" href="index.html">Voltar ao início</a>
+    <a class="btn" href="colecao.html">Ver a coleção</a>
+  </div>
+</main>
+
+</body>
+</html>

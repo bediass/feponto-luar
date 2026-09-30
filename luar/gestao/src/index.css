@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Fendi (dourado) — acento da marca. NUNCA usar como cor de texto de corpo. */
+  --color-fendi-50:  #faf6ef;
+  --color-fendi-100: #ede4d6;
+  --color-fendi-200: #e0d0bb;
+  --color-fendi-300: #d3bc9f;
+  --color-fendi-400: #c7aa88;
+  --color-fendi-500: #bd9f7b;
+  --color-fendi-600: #a0855f;
+  --color-fendi-700: #866f4f;
+  --color-fendi-800: #6b583f;
+  --color-fendi-900: #4e4030;
+
+  /* Neutros quentes — estrutura, texto, near-black */
+  --color-marca-50:  #f7f3ec;
+  --color-marca-100: #efe9df;
+  --color-marca-200: #e7e0d4;
+  --color-marca-300: #d6cdbd;
+  --color-marca-400: #a79e8e;
+  --color-marca-500: #7a746b;
+  --color-marca-600: #4a453e;
+  --color-marca-700: #35312b;
+  --color-marca-800: #2a2620;
+  --color-marca-900: #221f1b;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: #f7f3ec;
+  color: #221f1b;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Fotos da peça: no toque, sem hover e sem arrastar =====
+   No celular as fotos ficavam intocáveis: o arrastar-e-soltar do HTML5 não
+   dispara em tela de toque, e os botões (excluir, capa, baixar) viviam em
+   `group-hover`, que o Tailwind v4 só aplica dentro de @media (hover: hover).
+   Resultado: dava pra adicionar foto e nunca pra apagar.
+
+   Aqui a grade vira LISTA quando não há hover — uma foto por linha, miniatura
+   menor e uma barra de botões de verdade (44px) ao lado. No desktop nada muda:
+   a barra some e continua o arrastar-e-soltar com os botões no hover.
+
+   Mesma solução já em uso no ERP da Fê Ponto (PROJETO FEPONTO/src/index.css).
+
+   Tamanho e direção moram aqui (e não em utilitário do Tailwind) de propósito:
+   as duas regras teriam a mesma especificidade e quem ganhasse dependeria da
+   ordem/camada do CSS gerado. Aqui não há disputa. */
+.fotos-grade {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.foto-item {
+  display: flex;
+}
+.foto-thumb {
+  width: 6rem;
+  height: 6rem;
+}
+.foto-acoes,
+.foto-legenda {
+  display: none;
+}
+@media (hover: none), (pointer: coarse) {
+  .fotos-grade {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .foto-item {
+    width: 100%;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .foto-thumb {
+    width: 4.5rem;
+    height: 4.5rem;
+    cursor: default;
+  }
+  .foto-acoes {
+    display: flex;
+  }
+  .foto-legenda {
+    display: block;
+  }
+  /* botão de excluir e barra de baixar/capa são só do hover */
+  .foto-so-hover {
+    display: none !important;
+  }
+}
+
+/* ===== Etiqueta de peça — 9 × 1,2 cm, dobra ao meio =====
+   Mesmo desenho da etiqueta da Fê Ponto. Sem tracejado de vinco: a própria
+   marca, encostada na dobra, já é a referência visual de onde dobrar. */
+.etiqueta {
+  /* Ajuste fino da marca — mexer só nestes dois números.
+     Ficam aqui, no pai, porque a metade de informação também lê o recuo:
+     ela encolhe junto, então o texto nunca encosta na marca.
+       --marca-recuo: quanto a marca entra pra ESQUERDA da dobra (4,5 cm).
+       --marca-desce: quanto ela desce em relação ao centro vertical. */
+  --marca-recuo: 6mm;
+  --marca-desce: 0.5mm;
+
+  position: relative; /* âncora do posicionamento da marca */
+  display: flex;
+  width: 9cm;
+  height: 1.2cm;
+  color: #221f1b;
+  background: #fff;
+  border: 1px solid #e7e0d4; /* moldura só na prévia */
+  break-inside: avoid;
+  overflow: hidden;
+}
+.etiqueta-info {
+  box-sizing: border-box;
+  /* Encolhe junto com o recuo da marca: o texto termina sempre 2 mm antes de
+     onde a marca começa, independente do valor escolhido. */
+  width: calc(4.5cm - var(--marca-recuo));
+  height: 100%;
+  padding: 0.4mm 2mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.3mm;
+}
+/* A marca fica onde estava o tracejado do vinco: 4,5 cm da esquerda, ou seja
+   exatamente na dobra. É a borda ESQUERDA dela que encosta nos 4,5 cm — se
+   fosse centrada na metade direita, a dobra passaria pelo meio da marca.
+   Posição absoluta e não padding: o 4,5 cm é medido da borda esquerda da
+   etiqueta, então mexer na largura da metade de informação não desloca a marca. */
+.etiqueta-logo {
+  position: absolute;
+  left: calc(4.5cm - var(--marca-recuo));
+  top: var(--marca-desce);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.etiqueta-logo-simbolo {
+  height: 9mm;
+  flex: none;
+  /* A logo da Luar é PNG dourado, e etiquetadora térmica é 1 bit: dourado sai
+     cinza claro ou não sai. brightness(0) zera a luminância de cada pixel
+     visível e preserva o alfa — a marca sai preta e o fundo continua vazado.
+     Aplicado também na prévia, pra ela mostrar o que realmente vai no papel. */
+  filter: brightness(0);
+}
+.etiqueta-nome {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Código e preço empilhados, uma linha cada — o preço embaixo da referência. */
+.etiqueta-codigo {
+  font-size: 7px;
+  line-height: 1.1;
+  color: #52525b;
+}
+.etiqueta-preco {
+  font-size: 7px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #221f1b;
+}
+
+/* O destino do portal só existe pra impressão; na tela fica fora do caminho. */
+#raiz-impressao {
+  display: none;
+}
+
+@media print {
+  /* height:100% de html/body/#root vale a folha inteira; na impressão isso só
+     atrapalha a paginação. */
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0;
+    background: #fff;
+  }
+  /* display:none (e não visibility:hidden) — só assim o app devolve o espaço
+     que ocupava, senão a etiqueta é empurrada pra fora da única folha. */
+  #root {
+    display: none !important;
+  }
+  #raiz-impressao {
+    display: block !important;
+  }
+  .nao-imprimir {
+    display: none !important;
+  }
+
+  .area-impressao {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  .etiqueta {
+    border: none !important;
+    margin: 0 !important;
+    background: #fff !important;
+    /* impede o Chrome de "ajustar" cor e de descartar fundo */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    break-after: page;
+  }
+  .etiqueta:last-child {
+    break-after: auto;
+  }
+
+  /* 1 bit: sem cinza. Tudo preto puro. */
+  .etiqueta,
+  .etiqueta-nome,
+  .etiqueta-codigo,
+  .etiqueta-preco {
+    color: #000 !important;
+  }
+
+  /* corpos um degrau acima pra fechar traço a 203 dpi */
+  .etiqueta-nome {
+    font-size: 9px !important;
+  }
+  .etiqueta-codigo,
+  .etiqueta-preco {
+    font-size: 7.5px !important;
+  }
+
+  /* mm, não cm: é a unidade do estoque de etiqueta e do driver da Zebra.
+     90 × 12 mm = 720 × 96 pontos a 203 dpi. */
+  @page {
+    size: 90mm 12mm;
+    margin: 0;
+  }
+}

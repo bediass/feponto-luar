@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#221f1b" />
+    <title>Luar Acessórios · Gestão</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Destino das etiquetas na impressão. Fica FORA do #root de propósito: o
+         layout do app tem `overflow-hidden` e `overflow-y-auto` no caminho, e
+         de dentro deles a etiqueta era cortada e saía folha em branco. -->
+    <div id="raiz-impressao"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0a0a" />
+<title>Cuidados com a Peça — Fê Ponto Joias</title>
+<meta name="description" content="Como cuidar das suas joias: ouro 18k, ouro branco, diamantes e pedras naturais, pérolas e corais. Orientações de limpeza, guarda e uso no dia a dia." />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Cuidados com a Peça — Fê Ponto Joias" />
+<meta property="og:description" content="Ouro, ouro branco, diamantes, pérolas e corais — como limpar, guardar e usar suas joias sem danificá-las." />
+<meta property="og:locale" content="pt_BR" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="assets/estilo.css" />
+<!-- Medição de audiência (GA4). No <head> e não no fim do <body> de
+     propósito: quem entra e sai em 2 segundos precisa ser contado, e o
+     `defer` garante que isso não atrasa a renderização. O ID mora só
+     dentro do analytics.js. -->
+<script src="assets/analytics.js" defer></script>
+</head>
+<body>
+
+<!-- ============================== NAV ============================== -->
+<nav class="nav scrolled" id="nav">
+  <div class="nav__group nav__group--left">
+    <button class="nav__toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a href="index.html" class="nav__home">Home</a>
+    <a href="index.html#curadoria" class="nav__essencia">Nossa Essência</a>
+    <div class="nav__mega">
+      <button class="nav__mega-btn" id="megaBtn" type="button" aria-expanded="false" aria-controls="megaPanel">
+        Peças
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="mega" id="megaPanel" role="group" aria-label="Peças por categoria"></div>
+    </div>
+    <a href="garantia.html" class="nav__garantia">Garantia</a>
+  </div>
+
+  <a class="nav__logo" href="index.html" aria-label="Fê Ponto Joias — início">
+    <img src="assets/logo.svg" alt="Fê Ponto Joias" />
+  </a>
+
+  <div class="nav__group nav__group--right">
+    <a href="index.html#contato">Contato</a>
+    <button class="nav__busca" id="buscaBtn" type="button" aria-label="Buscar peças" aria-expanded="false" aria-controls="busca">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4-4"/></svg>
+    </button>
+    <button class="nav__cart" id="cartBtn" type="button" aria-label="Abrir carrinho">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8h13l-1 12.2a1 1 0 0 1-1 .8H7.5a1 1 0 0 1-1-.8L5.5 8Z"/><path d="M9 8V6.2a3 3 0 0 1 6 0V8"/></svg>
+      <span class="nav__cart-badge" id="cartBadge" style="display:none">0</span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="index.html#curadoria">Nossa Essência</a>
+  <a href="colecao.html">Peças</a>
+  <a href="garantia.html">Garantia</a>
+  <a href="index.html#contato">Contato</a>
+  <a class="btn btn-gold" data-wa data-msg="Olá! Vim pelo site e gostaria de agendar uma visita à Fê Ponto Joias." href="#">
+    Falar no WhatsApp
+  </a>
+</div>
+
+<!-- ============================== DOCUMENTO ============================== -->
+<main class="doc-pagina" id="conteudo">
+  <div class="wrap">
+    <nav class="crumb" aria-label="Trilha de navegação">
+      <a href="index.html">Início</a><i aria-hidden="true">/</i><span>Cuidados com a Peça</span>
+    </nav>
+
+    <article class="doc reveal">
+      <header class="doc__head">
+        <h1 class="doc__title display">Cuidados com a <em>Peça</em></h1>
+        <p class="doc__lead">Alguns cuidados simples mantêm o brilho, a cor e o acabamento da sua joia por muito mais tempo.</p>
+      </header>
+
+      <section class="doc__bloco">
+        <h2>Ouro</h2>
+        <p>Este admirado metal nobre é formado por uma liga cujas diferentes composições determinam sua cor (branca, amarela, rosê) e quilatagem.</p>
+        <p>O ouro mais usualmente empregado para joias é o 18K, composto por 750 partes de ouro puro e 250 de outros metais complementares, pois apresenta o melhor equilíbrio entre durabilidade e a maleabilidade necessária para moldar anéis, brincos, colares e pulseiras.</p>
+        <p>Por conta desta maleabilidade, o ouro é um material sensível a agressões externas, que podem alterar sua textura.</p>
+        <p>Na forma final das joias, seu acabamento pode ganhar superfície polida (extremamente brilhante) ou aparência fosca. O tempo de uso e os impactos das joias com superfícies podem causar marcas que são naturais.</p>
+        <p>Recomenda-se manter as joias de ouro limpando-as apenas com uma flanela macia e seca no dia a dia, para evitar maiores alterações.</p>
+      </section>
+
+      <section class="doc__bloco">
+        <h2>Ouro branco</h2>
+        <p>A cor do ouro branco em seu estado puro é na verdade, um pouco amarelada. O aspecto brilhante e tom prateado característicos das joias de ouro branco, são obtidos através de um procedimento chamado banho de ródio, que as deixa com cor clara, uniforme e brilhante.</p>
+        <p>O uso frequente das joias faz com que este banho se desgaste com o tempo podendo alterar sua cor e brilho. Por isso, é recomendado que uma manutenção periódica nessas peças, a fim de restaurar suas características originais.</p>
+      </section>
+
+      <section class="doc__bloco">
+        <h2>Diamantes e outras pedras naturais</h2>
+        <p>Para conservar os diamantes e outras pedras naturais em bom estado, é preciso que estes estejam sempre limpos.</p>
+        <p>Como estas pedras tem, por natureza, a propriedade de aderir às substâncias gordurosas, eles são rapidamente afetados quando entram em contato com substâncias oleosas, tais como hidratantes, protetores solares, ou até mesmo a oleosidade natural da pele.</p>
+        <p>Por isso, limpe uma vez por semana suas peças que são usadas diariamente, usando flanela úmida, sem nenhum produto químico.</p>
+        <p>Tente guardar as peças separadamente, em um tecido macio ou no bolso do saco de joias acolchoado. Se armazenadas perto de outras peças, as pedra ou a armação de ouro podem ser arranhadas ou danificada.</p>
+      </section>
+
+      <section class="doc__bloco">
+        <h2>Pérolas, madrepérolas e corais</h2>
+        <p>Essas gemas orgânicas são sensíveis a ácidos, detergentes, perfumes, fixadores de cabelo, ultrassom e soluções utilizadas para limpeza de joias. Portanto, evite que esses produtos entrem em contato com a peça.</p>
+        <p>Após o uso de joias com essas gemas, deve-se passar uma flanela macia umedecida com água para preservar o brilho e para retirar o resíduo de cremes, suor da pele ou maquiagem.</p>
+        <p>Não use joias com pérolas, madrepérolas e corais em piscinas, praia ou no banho, pois o cloro, o sal e o vapor d'água são prejudiciais à sua estrutura.</p>
+        <p>Não exponha as gemas orgânicas ao calor do secador de cabelos, pois ele pode provocar rachaduras em suas superfícies.</p>
+      </section>
+
+      <section class="doc__bloco">
+        <h2>No dia a dia</h2>
+        <p>Produtos químicos, sabonetes, golpes fortes ou fricção intensa podem danificar sua joia. Evite usá-las em tarefas domésticas, e retire os anéis ao lavar as mãos.</p>
+      </section>
+
+      <div class="doc__cta">
+        <a class="btn btn-outline" href="https://wa.me/5531994732018?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20como%20cuidar%20da%20minha%20pe%C3%A7a%20da%20F%C3%AA%20Ponto%20Joias." target="_blank" rel="noopener" data-wa data-msg="Olá! Tenho uma dúvida sobre como cuidar da minha peça da Fê Ponto Joias.">
+          Tirar uma dúvida
+        </a>
+      </div>
+    </article>
+  </div>
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <p class="tag">Exclusividade por essência.</p>
+        <p>Curadoria de alta joalheria em Belo Horizonte / MG. Peças únicas em ouro e ouro branco com pedras preciosas.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Navegar</h4>
+        <a href="index.html#curadoria">Nossa Essência</a>
+        <a href="colecao.html">Peças</a>
+        <a href="garantia.html">Garantia</a>
+        <a href="index.html#contato">Contato</a>
+      </div>
+      <div class="footer__col">
+        <h4>Políticas</h4>
+        <a href="politica-de-entrega.html">Política de Entrega</a>
+        <a href="cuidados-com-a-peca.html" aria-current="page">Cuidados com a Peça</a>
+        <a href="politica-de-privacidade.html">Política de Privacidade</a>
+      </div>
+      <div class="footer__col">
+        <h4>Contato</h4>
+        <a data-wa data-msg="Olá! Vim pelo site da Fê Ponto Joias.">WhatsApp (31) 99473-2018</a>
+        <a href="mailto:fepontojoias@gmail.com">fepontojoias@gmail.com</a>
+        <a href="https://instagram.com/fepontojoias" target="_blank" rel="noopener">@fepontojoias</a>
+        <a href="index.html#contato">Belo Horizonte / MG</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© <span id="year">2026</span> Fê Ponto Joias. Todos os direitos reservados.</p>
+      <p>Feito com cuidado · curadoria &amp; joalheria</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="wa-float visible" data-wa data-msg="Olá! Vim pelo site da Fê Ponto Joias e gostaria de mais informações." aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.2 1.2-1.7 1.2-.4 0-1 .1-3.2-.9-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.7s.7-1.9 .9-2.1c.2-.2 .5-.3 .7-.3h.5c.2 0 .4 0 .6 .5l.8 2c.1 .2 .1 .4 0 .5l-.4 .5c-.1 .2-.3 .3-.1 .6 .1 .3 .7 1.1 1.4 1.8 1 .8 1.7 1.1 2 1.2 .2 .1 .4 .1 .5-.1l.7-.8c.2-.2 .4-.2 .6-.1l1.9 .9c.3 .1 .5 .2 .5 .4 .1 .1 .1 .8-.1 1.3Z"/></svg>
+</a>
+
+<!-- ===== Loja: Supabase (mega-menu + carrinho) + chrome da página ===== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/loja.js"></script>
+<script src="assets/pagina-chrome.js"></script>
+<script src="assets/pagina-index-catalogo.js"></script>
+</body>
+</html>

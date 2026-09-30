@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--
+  PÁGINA-LÁPIDE. Não é uma página de verdade — é o túmulo do checkout.
+
+  A compra online foi desligada em 31/07/2026 e o checkout foi apagado. Só que
+  a Cloudflare tinha cacheado /checkout na borda com s-maxage de 7 dias, e um
+  deploy novo não invalida o que deixou de existir: quem tivesse o link antigo
+  continuava vendo a tela de pagamento (quebrada) por vários dias.
+
+  Em vez de esperar o cache expirar, o endereço voltou a existir — dizendo a
+  coisa certa. Vale também pra link antigo salvo, print no WhatsApp e resultado
+  velho do Google.
+
+  Autossuficiente de propósito: nada de assets/loja.js (que precisa do Supabase
+  pra montar) e nada de <script> — o CSP em _headers não tem 'unsafe-inline'
+  pra script. Só HTML e um <style> local.
+
+  Se um dia a Luar voltar a vender online, este arquivo é o que precisa sair.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<title>A compra agora é pelo WhatsApp — Luar Acessórios</title>
+<meta name="description" content="A Luar Acessórios não vende mais pelo site. Escolha suas peças na loja e finalize o pedido pelo WhatsApp." />
+<meta name="robots" content="noindex, follow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  /* Tokens espelhados de assets/estilo.css — ver o porquê no comentário do topo.
+     Regra de ouro da marca: dourado NUNCA como cor de texto. Botão dourado = texto near-black. */
+  :root {
+    --champagne:      #bd9f7b;
+    --champagne-dark: #a0855f;
+    --ink:            #221f1b;
+    --ink-2:          #7a746b;
+    --white:          #ffffff;
+    --line:           #e7e0d4;
+    --font-head: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --r-md: 6px;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; padding: 0; }
+  html { color-scheme: light; -webkit-text-size-adjust: 100%; }
+
+  body {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* env() no recuo horizontal: a página declara viewport-fit=cover, e em
+       celular com notch deitado o entalhe come ~44px da lateral — mais que o
+       padding mínimo de 20px. Sem isto o texto passa por baixo do entalhe. */
+    padding: 3rem calc(clamp(1.25rem, 5vw, 3rem) + env(safe-area-inset-right))
+             3rem calc(clamp(1.25rem, 5vw, 3rem) + env(safe-area-inset-left));
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main { max-width: 34rem; text-align: center; }
+
+  a { touch-action: manipulation; -webkit-tap-highlight-color: rgba(189, 159, 123, 0.2); }
+
+  .logo { display: block; width: 120px; margin: 0 auto 2.75rem; }
+  .logo img { width: 100%; height: auto; display: block; }
+
+  .codigo {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: clamp(1.875rem, 5.5vw, 2.75rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    text-wrap: balance;
+  }
+
+  p.texto {
+    color: var(--ink-2);
+    margin-bottom: 2.25rem;
+    text-wrap: pretty;
+  }
+
+  .acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--white);
+    transition: background-color 240ms var(--ease), border-color 240ms var(--ease);
+  }
+
+  .btn svg { width: 18px; height: 18px; flex: none; }
+
+  .btn--primario {
+    background: var(--champagne);
+    border-color: var(--champagne);
+    color: var(--ink);
+  }
+
+  .btn:hover { border-color: var(--champagne); }
+  .btn--primario:hover { background: var(--champagne-dark); border-color: var(--champagne-dark); }
+
+  a:focus-visible {
+    outline: 2px solid var(--champagne-dark);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <a class="logo" href="index.html" aria-label="Luar Acessórios — voltar ao início">
+    <img src="assets/logo-luar.png" alt="Luar Acessórios" width="1265" height="783" fetchpriority="high" />
+  </a>
+
+  <p class="codigo">Pedido pelo WhatsApp</p>
+
+  <h1>A compra não é mais pelo site</h1>
+
+  <p class="texto">Agora o pedido é fechado direto com a gente. Escolha suas peças na loja, monte o carrinho e envie a lista pelo WhatsApp — combinamos pagamento e entrega por lá, com atendimento de verdade do outro lado.</p>
+
+  <div class="acoes">
+    <a class="btn btn--primario" href="loja.html">Ver produtos</a>
+    <a class="btn" href="https://wa.me/5531994490804?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Luar%20Acess%C3%B3rios%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      Falar no WhatsApp
+    </a>
+  </div>
+</main>
+
+</body>
+</html>

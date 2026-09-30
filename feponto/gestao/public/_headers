@@ -1,0 +1,19 @@
+# Headers de segurança do ERP da Fê Ponto — item 12 do SEGURANCA-PENTEST.md.
+# Vira dist/_headers no build. Lido pelo Cloudflare Pages (e pelo Netlify).
+#
+# Painel interno: trava clickjacking, sniffing, vazamento de referer e força HTTPS.
+#
+# Origens liberadas e por quê:
+#   fonts.googleapis / gstatic     -> @import da fonte Inter em src/index.css
+#   bbeowsellckpnddirbep.supabase  -> banco, auth, realtime e fotos das peças
+#   economia.awesomeapi.com.br     -> cotação do ouro (src/lib/cotacao.ts)
+#
+# script-src sem 'unsafe-inline': o Vite empacota tudo, não há script inline.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://bbeowsellckpnddirbep.supabase.co; connect-src 'self' https://bbeowsellckpnddirbep.supabase.co wss://bbeowsellckpnddirbep.supabase.co https://economia.awesomeapi.com.br; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'

@@ -1,0 +1,33 @@
+# Headers de segurança do site público da Fê Ponto — item 12 do SEGURANCA-PENTEST.md.
+# Formato lido pelo Cloudflare Pages (e pelo Netlify) sem nenhuma alteração.
+#
+# Origens liberadas e por quê:
+#   cdn.jsdelivr.net              -> cliente supabase-js (script)
+#   fonts.googleapis / gstatic    -> Google Fonts
+#   bbeowsellckpnddirbep.supabase -> catálogo ao vivo + fotos das peças
+#   www.google.com (frame-src)    -> mapa embutido na seção de contato
+#   www.googletagmanager.com      -> gtag.js do Google Analytics 4 (script)
+#   *.google-analytics.com        -> para onde o evento é enviado (connect + img)
+#   *.analytics.google.com        -> idem, o endpoint regional do GA4
+#
+# Sobre o GA4 (11/08/2026, `assets/analytics.js`): o trecho que o Google manda
+# colar tem um <script> INLINE, que este CSP bloqueia de propósito. Por isso a
+# configuração vive em assets/analytics.js e o gtag.js é carregado por ele.
+# As origens do Analytics entram em connect-src E em img-src porque o GA4 manda
+# o evento por sendBeacon quando pode e cai pra pixel de imagem quando não pode:
+# liberar só um dos dois faz a medição funcionar em um navegador e falhar noutro.
+#
+# script-src NÃO tem 'unsafe-inline': todo JS das páginas foi movido para
+# assets/pagina-*.js. Se você voltar a escrever <script> direto no HTML, a
+# página para de funcionar — é proposital. Crie um .js e referencie por src.
+#
+# style-src mantém 'unsafe-inline' porque as páginas ainda têm atributos
+# style="..." e blocos <style>. Risco muito menor que script inline.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://bbeowsellckpnddirbep.supabase.co https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://bbeowsellckpnddirbep.supabase.co wss://bbeowsellckpnddirbep.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'

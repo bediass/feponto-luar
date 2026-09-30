@@ -1,0 +1,8 @@
+# Site estático — não há build nem dependências.
+# Nada de segredo aqui: a anon key do Supabase é pública por design (RLS protege).
+
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

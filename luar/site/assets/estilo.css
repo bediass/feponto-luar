@@ -1,0 +1,1002 @@
+/* ============================================================
+   Luar Acessórios · Design System (luxo-moderno / atemporal)
+   Branco dominante · champagne #d8b779 como acento (nunca texto)
+   · serifa Fraunces nos títulos · Inter no corpo · quiet luxury.
+   ============================================================ */
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Cores: dourado "Fendi" #BD9F7B é a cor-assinatura da marca */
+  --champagne:      #bd9f7b;   /* Fendi: dourado amendoado (CTA, detalhes, ícones) */
+  --champagne-dark: #a0855f;   /* hover/pressed de elementos dourados */
+  --champagne-soft: #ede4d6;   /* preenchimentos suaves, ícones */
+  --ink:            #221f1b;   /* texto principal / near-black quente */
+  --ink-2:          #7a746b;   /* texto secundário */
+  --white:          #ffffff;
+  --ivory:          #f7f3ec;   /* off-white quente de seções */
+  --ivory-2:        #fbf8f2;
+  --line:           #e7e0d4;   /* hairlines, bordas */
+  --line-2:         #efe9de;
+  --success:        #2e7d5b;
+  --error:          #b3261e;
+
+  --bg:          var(--white);
+  --surface:     var(--white);
+  --surface-alt: var(--ivory);
+
+  /* Tipografia */
+  --font-head: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Raio (refinado, pouco arredondado) */
+  --r-sm: 3px;
+  --r-md: 6px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --r-pill: 999px;
+
+  /* Sombras discretas */
+  --sh-1: 0 1px 2px rgba(34,31,27,.04);
+  --sh-2: 0 6px 24px rgba(34,31,27,.08);
+  --sh-3: 0 24px 70px rgba(34,31,27,.18);
+  --ring: 0 0 0 3px rgba(189,159,123,.5);
+
+  --wrap: 1240px;
+  --nav-h: 78px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --t: 240ms var(--ease);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; color-scheme: light; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Segura o estouro horizontal SEM quebrar position:sticky.
+     `overflow-x: hidden` transforma o body em contêiner de rolagem (o eixo Y
+     vira auto junto), e aí todo sticky descendente passa a se ancorar num
+     contêiner que não rola — na prática, sticky morto. Foi o que deixava a
+     foto da peça rolando junto com a página.
+     `overflow-x: clip` corta igual e NÃO cria contêiner de rolagem.
+     As duas linhas ficam de propósito: navegador sem suporte a `clip`
+     descarta a segunda e mantém o `hidden` como antes. */
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+button, a, input, select, textarea, summary, label { touch-action: manipulation; }
+ul { list-style: none; padding: 0; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head); font-weight: 500; line-height: 1.1;
+  letter-spacing: -.01em; font-optical-sizing: auto;
+}
+
+.tnum, .price, .qty__val, .card__price, .card__installment, .cart-item__price, .co-item__price, .pedido__row { font-variant-numeric: tabular-nums; }
+
+/* Label / eyebrow / botão: tipografia de boutique (maiúsculas espaçadas) */
+.eyebrow, .tag, .btn, .card__cat, .footer__col h4, .cat__count, .cart-cross h3 {
+  font-family: var(--font-body); text-transform: uppercase; letter-spacing: .16em;
+}
+
+/* ---------- Acessibilidade ---------- */
+:focus-visible { outline: none; box-shadow: var(--ring); border-radius: var(--r-sm); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; top: -60px; left: 12px; z-index: 2000; background: var(--ink); color: var(--white); padding: 10px 16px; border-radius: var(--r-sm); transition: top var(--t); }
+.skip-link:focus { top: 12px; }
+
+/* ---------- Layout ---------- */
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: clamp(20px, 5vw, 48px); }
+.section { padding-block: clamp(60px, 9vw, 120px); }
+.section--alt { background: var(--surface-alt); }
+.section--tight { padding-block: clamp(40px, 6vw, 72px); }
+main section[id] { scroll-margin-top: 92px; }   /* nav fixa não tampa a seção ao clicar na âncora */
+
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: clamp(32px, 5vw, 56px); }
+.eyebrow { display: inline-block; font-weight: 600; font-size: .74rem; color: var(--champagne-dark); }
+.sec-title { font-size: clamp(2rem, 4.2vw, 3.1rem); margin-top: 16px; font-weight: 500; }
+.sec-title em { font-style: italic; color: var(--champagne-dark); }
+.sec-sub { color: var(--ink-2); max-width: 48ch; margin-top: 12px; font-size: 1.02rem; }
+
+/* ---------- Botões (retangulares, maiúsculas espaçadas) ---------- */
+.btn {
+  --btn-bg: var(--ink); --btn-fg: var(--white); --btn-bd: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; padding: 0 32px; border-radius: var(--r-pill);
+  background: var(--btn-bg); color: var(--btn-fg); border: 1px solid var(--btn-bd);
+  font-weight: 600; font-size: .76rem;
+  transition: background var(--t), color var(--t), border-color var(--t), box-shadow var(--t), transform var(--t);
+  -webkit-tap-highlight-color: transparent; text-align: center;
+}
+.btn:hover { box-shadow: var(--sh-2); }
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 17px; height: 17px; }
+
+/* Dourado com texto ESCURO: a regra da casa (contraste ~9:1) */
+.btn--gold { --btn-bg: var(--champagne); --btn-fg: var(--ink); --btn-bd: var(--champagne); }
+.btn--gold:hover { --btn-bg: var(--champagne-dark); --btn-bd: var(--champagne-dark); }
+
+.btn--outline { --btn-bg: transparent; --btn-fg: var(--ink); --btn-bd: var(--line); }
+.btn--outline:hover { --btn-bd: var(--ink); background: transparent; }
+
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--ink); --btn-bd: transparent; letter-spacing: .1em; }
+.btn--ghost:hover { background: var(--surface-alt); box-shadow: none; }
+
+.btn--block { display: flex; width: 100%; }
+.btn--sm { min-height: 42px; padding: 0 18px; font-size: .68rem; letter-spacing: .14em; }
+.btn--lg { min-height: 56px; padding: 0 38px; font-size: .8rem; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+
+.link-underline { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); font-weight: 500; }
+.link-underline:hover { text-decoration-color: var(--champagne-dark); }
+
+/* ---------- Tags ---------- */
+.tag { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: .64rem; padding: 5px 11px; border-radius: var(--r-sm); background: var(--champagne-soft); color: var(--ink); }
+.tag--ink { background: var(--ink); color: var(--white); }
+.tag--line { background: transparent; border: 1px solid var(--line); color: var(--ink-2); }
+
+/* ============================================================
+   Faixa de anúncio
+   ============================================================ */
+.announce { background: var(--ink); color: var(--white); font-size: .78rem; letter-spacing: .04em; text-align: center; padding: 10px 16px; position: relative; z-index: 60; }
+.announce b { color: var(--champagne); font-weight: 600; }
+
+/* ============================================================
+   Navbar
+   ============================================================ */
+/* Nav flutuante: transparente sobre a hero (topo) → barrinha slim ao rolar */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: transparent; border-bottom: 1px solid transparent; transition: background .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease); }
+.nav.scrolled { background: rgba(255,255,255,.97); backdrop-filter: saturate(1.3) blur(14px); border-bottom-color: var(--line); box-shadow: var(--sh-1); }
+.nav__inner { position: relative; display: flex; align-items: center; height: var(--nav-h); transition: height .3s var(--ease); }
+.nav.scrolled .nav__inner { height: 54px; }
+
+.nav__left { display: flex; align-items: center; gap: 2px; }
+.nav__right { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+
+/* Logo: branca central no topo → dourada desliza pra esquerda ao rolar */
+.nav__logo { display: flex; align-items: center; }
+.nav__logo img { width: auto; transition: height .3s var(--ease); }
+.nav__logo--center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); transition: opacity .25s var(--ease); }
+.nav__logo--center img { height: 52px; }
+.nav__logo--center .logo-gold { display: none; }
+.nav.scrolled .nav__logo--center { opacity: 0; pointer-events: none; }
+.nav__logo--left { width: 0; overflow: hidden; opacity: 0; transition: width .34s var(--ease), opacity .28s var(--ease), margin var(--t); }
+.nav__logo--left img { height: 30px; }
+.nav.scrolled .nav__logo--left { width: 52px; opacity: 1; margin-right: 20px; }
+
+.nav__links { display: flex; align-items: center; gap: 2px; margin-left: 8px; }
+.nav__links a { font-weight: 500; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; padding: 9px 14px; border-radius: var(--r-sm); color: var(--ink); transition: color var(--t); }
+.nav__links a:hover, .nav__links a[aria-current="page"] { color: var(--champagne-dark); }
+
+/* Estado topo (flutuante sobre a hero escura): conteúdo branco */
+.nav:not(.scrolled) .nav__links a { color: rgba(255,255,255,.9); }
+.nav:not(.scrolled) .nav__links a:hover { color: #fff; }
+.nav:not(.scrolled) .icon-btn { color: #fff; }
+.nav:not(.scrolled) .icon-btn:hover { background: rgba(255,255,255,.15); }
+.nav:not(.scrolled) .nav__search input { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.4); color: #fff; }
+.nav:not(.scrolled) .nav__search input::placeholder { color: rgba(255,255,255,.72); }
+.nav:not(.scrolled) .nav__search svg { color: rgba(255,255,255,.82); }
+
+.nav__search { position: relative; display: flex; align-items: center; }
+.nav__search input { width: 210px; height: 44px; padding: 0 14px 0 42px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--white); transition: width var(--t), border-color var(--t); }
+.nav__search input::placeholder { color: var(--ink-2); }
+.nav__search input:focus { width: 264px; border-color: var(--champagne-dark); box-shadow: none; }
+.nav__search svg { position: absolute; left: 15px; width: 18px; height: 18px; color: var(--ink-2); pointer-events: none; }
+
+.icon-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: var(--r-pill); color: var(--ink); transition: background var(--t); }
+.icon-btn:hover { background: var(--surface-alt); }
+.icon-btn svg { width: 22px; height: 22px; }
+.cart-count { position: absolute; top: 4px; right: 4px; min-width: 18px; height: 18px; padding: 0 5px; display: grid; place-items: center; border-radius: var(--r-pill); background: var(--champagne); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: .66rem; line-height: 1; }
+.nav__toggle { display: none; }
+
+.mobile-menu { position: fixed; inset: var(--nav-h) 0 0; z-index: 45; background: var(--white); padding: 18px clamp(20px,5vw,48px) 40px; transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity var(--t), transform var(--t); overflow-y: auto; overscroll-behavior: contain; }
+.mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; }
+.mobile-menu a { display: block; padding: 15px 4px; font-family: var(--font-head); font-weight: 500; font-size: 1.3rem; border-bottom: 1px solid var(--line-2); }
+.mobile-menu .btn { margin-top: 22px; }
+.mobile-search { margin: 6px 0 16px; position: relative; }
+.mobile-search input { width: 100%; height: 50px; padding: 0 16px 0 46px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--white); }
+.mobile-search svg { position: absolute; left: 16px; top: 16px; width: 18px; height: 18px; color: var(--ink-2); }
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero { position: relative; background: #17130f; overflow: hidden; }
+.hero__bg { display: none; }
+.hero__inner { position: relative; z-index: 2; padding-block: clamp(52px, 8vw, 100px); }
+.hero__content { max-width: 600px; }
+.hero__eyebrow { color: rgba(255,255,255,.82); letter-spacing: .2em; }
+.hero__title { color: #fff; font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 400; letter-spacing: -.02em; line-height: 1.04; margin: 20px 0 22px; }
+.hero__title em { font-style: italic; color: var(--champagne); }
+.hero__lead { font-size: clamp(1.04rem, 1.5vw, 1.2rem); color: rgba(255,255,255,.84); max-width: 46ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.hero .btn--outline { --btn-fg: #fff; --btn-bd: rgba(255,255,255,.5); }
+.hero .btn--outline:hover { --btn-bd: #fff; background: rgba(255,255,255,.1); }
+.hero__trust { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-top: 40px; }
+.hero__trust li { display: flex; align-items: center; gap: 10px; font-size: .86rem; color: rgba(255,255,255,.86); }
+.hero__trust svg { width: 20px; height: 20px; color: var(--champagne); flex: 0 0 auto; }
+
+/* Desktop: banner de fundo (modelos à direita), texto à esquerda */
+@media (min-width: 861px) {
+  .hero { background: #17130f; }
+  .hero__bg { display: block; position: absolute; inset: 0; background: url("fundo-hero.jpg") 100% 8% / cover no-repeat; }
+  /* degradê escuro: esquerda (texto) + topo (nav) + base (funde a barra branca do piso) */
+  .hero__bg::after { content: ""; position: absolute; inset: 0; background:
+    linear-gradient(90deg, rgba(22,19,16,.82) 0%, rgba(22,19,16,.58) 32%, rgba(22,19,16,.12) 58%, transparent 72%),
+    linear-gradient(180deg, rgba(22,19,16,.5) 0%, transparent 26%),
+    linear-gradient(0deg, rgba(22,19,16,.55) 0%, transparent 12%); }
+  /* hero ocupa a tela toda: a próxima seção (branca) não espia embaixo */
+  .hero__inner { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; max-width: none; padding-block: calc(var(--nav-h) + 8px) 40px; padding-left: clamp(48px, 8vw, 150px); padding-right: clamp(32px, 5vw, 96px); }
+  .hero__content { max-width: clamp(340px, 40vw, 500px); }
+  .hero__lead { max-width: 38ch; }
+}
+
+/* ============================================================
+   Grid de produtos + card
+   ============================================================ */
+.grid { display: grid; gap: clamp(16px, 2.4vw, 28px); }
+.grid--products { grid-template-columns: repeat(4, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+.card { position: relative; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; transition: box-shadow var(--t), border-color var(--t), transform var(--t); }
+.card:hover { box-shadow: var(--sh-2); border-color: var(--line); transform: translateY(-3px); }
+.card__media { position: relative; aspect-ratio: 1/1; background: var(--surface-alt); overflow: hidden; }
+.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease); }
+.card:hover .card__media img { transform: scale(1.045); }
+.card__media-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--champagne-dark); }
+.card__media-fallback svg { width: 44px; height: 44px; opacity: .5; }
+.card__badges { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; }
+/* body = coluna com o texto agrupado em .card__info e o botão empurrado pro
+   rodapé (margin-top:auto). Assim o "Adicionar" fica na mesma linha em todos os
+   cards da fileira, independente de o nome da peça ocupar 1 ou 2 linhas.
+   O respiro mínimo vem do margin-bottom do .card__info, não do gap. */
+.card__body { display: flex; flex-direction: column; padding: 16px 18px 20px; flex: 1; }
+.card__info { display: flex; flex-direction: column; gap: 3px; margin-bottom: 16px; }
+.card__cat { font-size: .66rem; color: var(--ink-2); font-weight: 600; }
+.card__name { font-family: var(--font-head); font-weight: 500; font-size: 1.12rem; letter-spacing: -.01em; margin-top: 4px; }
+.card__name a::after { content: ""; position: absolute; inset: 0; }
+.card__price-row { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; }
+.card__price { font-family: var(--font-head); font-weight: 500; font-size: 1.2rem; }
+.card__price-old { font-size: .9rem; color: var(--ink-2); text-decoration: line-through; }
+.card__installment { font-size: .8rem; color: var(--ink-2); margin-top: 2px; }
+.card__add { position: relative; z-index: 2; margin-top: auto; }
+.card__soldout { position: absolute; inset: 0; background: rgba(247,243,236,.74); display: grid; place-items: center; }
+.card__soldout span { background: var(--ink); color: var(--white); font-family: var(--font-body); text-transform: uppercase; letter-spacing: .14em; font-weight: 600; font-size: .66rem; padding: 8px 15px; border-radius: var(--r-sm); }
+
+/* ---------- Rail ---------- */
+/* carrossel: setas em colunas laterais próprias (nunca em cima dos cards) */
+.rail { position: relative; display: flex; align-items: center; gap: clamp(4px, 1vw, 12px); }
+/* overflow-y:hidden é obrigatório, não decoração. Com overflow-x:auto sozinho,
+   o CSS promove o eixo Y de visible pra auto e o trilho vira rolável na
+   vertical também — aí ele engole a roda do mouse e a página não desce.
+   Fixando Y em hidden, o navegador devolve a rolagem vertical pra página com
+   a inércia nativa. Era isso que o antigo listener de wheel tentava emular.
+   O padding com margem negativa é o preço disso: sem ele o overflow-y cortaria
+   a elevação e a sombra do card no hover. A margem devolve o espaço, então o
+   espaçamento da seção continua igual ao de antes. */
+.rail__track { flex: 1 1 auto; min-width: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 280px); gap: clamp(16px, 2vw, 26px); overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 10px 0 20px; margin: -10px 0 -20px; }
+.rail__track::-webkit-scrollbar { display: none; }
+.rail__track > * { scroll-snap-align: start; }
+.rail__nav { flex: 0 0 auto; width: 44px; height: 44px; border-radius: var(--r-pill); background: var(--white); border: 1px solid var(--line); box-shadow: var(--sh-2); display: grid; place-items: center; z-index: 3; transition: background var(--t); }
+.rail__nav:hover { background: var(--surface-alt); }
+.rail__nav svg { width: 20px; height: 20px; }
+@media (max-width: 720px) { .rail__nav { display: none; } }
+@media (min-width: 900px) { .grid--products.rail__track { grid-auto-columns: minmax(260px, 25%); } }
+
+/* ============================================================
+   Categorias
+   ============================================================ */
+.cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 2vw, 24px); }
+.cat { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; aspect-ratio: 3/4; border-radius: var(--r-lg); overflow: hidden; padding: 20px; text-align: center; background: var(--surface); border: 1px solid var(--line); transition: box-shadow var(--t), border-color var(--t), transform var(--t); }
+.cat:hover { box-shadow: var(--sh-2); border-color: var(--champagne); transform: translateY(-3px); }
+.cat__ic { width: 52px; height: 52px; margin-bottom: 10px; border-radius: var(--r-pill); background: var(--champagne-soft); display: grid; place-items: center; color: var(--ink); }
+.cat__ic svg { width: 26px; height: 26px; }
+.cat__label { position: relative; z-index: 2; font-family: var(--font-head); font-weight: 500; font-size: 1.2rem; }
+.cat__count { position: relative; z-index: 2; font-size: .64rem; color: var(--ink-2); font-weight: 600; }
+.cat--photo { justify-content: flex-end; align-items: flex-start; text-align: left; }
+.cat--photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(34,31,27,.58), transparent 55%); }
+.cat--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cat--photo .cat__ic { display: none; }
+.cat--photo .cat__label, .cat--photo .cat__count { color: var(--white); }
+
+/* ============================================================
+   Kits / combos (AOV)
+   ============================================================ */
+.kits { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 26px); }
+.kit { display: flex; flex-direction: column; gap: 14px; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); transition: box-shadow var(--t), transform var(--t); }
+.kit:hover { box-shadow: var(--sh-2); transform: translateY(-3px); }
+/* Mesma regra da foto do produto: a moldura acompanha a foto, presa entre 1:1
+   e 3:4. Quem escreve o `--foto` é o `Loja.ajustarProporcao` do loja.js.
+   Era 16/10 até 03/08/2026, e nessa caixa a foto 9:16 (que é o formato de 2 dos
+   3 kits de hoje) perdia 65% da altura: sobrava a seda de fundo e a peça saía
+   decepada. Ver o comentário da função em loja.js. */
+/* `position: relative` no lugar do antigo `display: grid; place-items: center`.
+   Com grid centralizado, o `height: 100%` da img não resolvia contra a moldura:
+   ela ficava na altura natural (514px numa caixa de 385px) e quem cortava era o
+   `overflow: hidden`, não o `object-fit`. Dava no mesmo na tela, mas a caixa
+   mentia sobre o próprio tamanho e qualquer medição em cima dela saía errada.
+   Agora é igual a .pdp__media e .card__media. O ícone de reserva, que era o
+   motivo do grid, virou absoluto. */
+.kit__media { position: relative; aspect-ratio: var(--foto, 3/4); border-radius: var(--r-md); overflow: hidden; background: var(--surface-alt); }
+.kit__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.kit__media svg { position: absolute; inset: 0; margin: auto; width: 44px; height: 44px; color: var(--champagne-dark); opacity: .5; }
+.kit__name { font-family: var(--font-head); font-weight: 500; font-size: 1.3rem; }
+.kit__desc { color: var(--ink-2); font-size: .94rem; flex: 1; }
+.kit__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.kit__price b { font-family: var(--font-head); font-weight: 500; font-size: 1.25rem; }
+.kit__price s { color: var(--ink-2); font-size: .85rem; margin-left: 6px; }
+
+/* ============================================================
+   Prova social
+   ============================================================ */
+/* Faixa de vantagens: marquee contínuo */
+.marquee-band { background: var(--ink); color: #fff; overflow: hidden; }
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
+.marquee__track { display: flex; align-items: center; width: max-content; animation: marquee 45s linear infinite; }
+.marquee-band:hover .marquee__track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee__item { display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px; font-family: var(--font-body); font-size: .76rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.9); white-space: nowrap; }
+.marquee__item svg { width: 17px; height: 17px; color: var(--champagne); flex: 0 0 auto; }
+.marquee__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--champagne); opacity: .7; flex: 0 0 auto; }
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
+
+.voices { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 26px); }
+.voice { display: flex; flex-direction: column; gap: 14px; padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.stars { display: flex; gap: 2px; color: var(--champagne-dark); }
+.stars svg { width: 16px; height: 16px; }
+.voice blockquote { font-family: var(--font-head); font-weight: 400; font-size: 1.12rem; line-height: 1.5; font-style: italic; }
+.voice__who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.voice__avatar { width: 42px; height: 42px; border-radius: var(--r-pill); background: var(--champagne-soft); display: grid; place-items: center; font-family: var(--font-head); font-weight: 600; color: var(--ink); }
+.voice__meta strong { display: block; font-weight: 600; font-size: .9rem; }
+.voice__meta span { font-size: .8rem; color: var(--ink-2); }
+
+/* ============================================================
+   CTA / newsletter
+   ============================================================ */
+.cta-band { background: var(--ink); color: var(--white); border-radius: var(--r-xl); padding: clamp(36px, 6vw, 64px); text-align: center; }
+.cta-band h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 400; }
+.cta-band h2 em { font-style: italic; color: var(--champagne); }
+.cta-band p { color: rgba(255,255,255,.7); max-width: 48ch; margin: 14px auto 0; }
+.cta-band__form { display: flex; gap: 10px; max-width: 460px; margin: 30px auto 0; }
+.cta-band__form input { flex: 1; height: 52px; padding: 0 18px; border-radius: var(--r-sm); border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: var(--white); }
+.cta-band__form input::placeholder { color: rgba(255,255,255,.5); }
+.cta-band__actions { display: flex; justify-content: center; margin-top: 30px; }
+.cta-band__actions .btn svg { width: 20px; height: 20px; }
+.cta-band__fine { font-size: .82rem; color: rgba(255,255,255,.5); margin-top: 16px; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+/* O respiro de baixo é 88px, não 30px, por causa do botão flutuante do WhatsApp:
+   ele é `position:fixed` a 18px do fundo com 56px de lado, então ocupa os ~74px
+   inferiores da janela. Com 30px, a fileira de bandeiras do rodapé ficava
+   exatamente embaixo dele e a última marca aparecia coberta por um círculo verde
+   ao chegar no fim da página. Mexer aqui? Conferir o fim do rodapé com o botão
+   visível antes de baixar o valor. */
+.footer { background: var(--surface-alt); border-top: 1px solid var(--line); padding-block: clamp(48px, 6vw, 80px) 88px; }
+.footer__top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px; }
+.footer__brand img { height: 40px; margin-bottom: 16px; }
+.footer__brand p { color: var(--ink-2); font-size: .92rem; max-width: 34ch; }
+.footer__social { display: flex; gap: 10px; margin-top: 18px; }
+.footer__social a { width: 42px; height: 42px; border-radius: var(--r-pill); border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink); transition: background var(--t), border-color var(--t); }
+.footer__social a:hover { background: var(--white); border-color: var(--ink); }
+.footer__social svg { width: 19px; height: 19px; }
+.footer__col h4 { font-weight: 600; font-size: .68rem; color: var(--ink-2); margin-bottom: 16px; }
+.footer__col a, .footer__col p { display: block; color: var(--ink); font-size: .92rem; padding: 5px 0; }
+.footer__col a:hover { color: var(--champagne-dark); }
+.footer__bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); font-size: .84rem; color: var(--ink-2); }
+.footer__pay { display: flex; align-items: center; gap: 8px; }
+.footer__pay span { font-size: .76rem; }
+.footer__pay .chip-pay { border: 1px solid var(--line); border-radius: var(--r-sm); padding: 3px 8px; font-weight: 600; font-size: .68rem; background: var(--white); }
+/* Chip com a marca oficial da bandeira dentro (Pix, Visa, Mastercard, Elo).
+   CAIXA DE TAMANHO FIXO, não altura fixa: as quatro artes têm proporções muito
+   diferentes (o Pix é 2,8:1 e deitado, o Mastercard é 1,3:1 e quase quadrado, o
+   Elo já vem com fundo preto próprio). Alinhando só pela altura, o Pix fica 4x
+   mais largo que o Mastercard e a fileira sai torta. A caixa fixa com
+   `object-fit` de contenção normaliza tudo.
+   54x34 foi escolhido por teste de renderização: abaixo disso o "powered by
+   Banco Central" da arte oficial do Pix vira borrão, acima disso a fileira
+   domina a barra do rodapé. */
+.footer__pay .chip-pay--logo { display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 34px; padding: 5px 7px; }
+.footer__pay .chip-pay--logo img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; }
+
+/* ============================================================
+   Carrinho (drawer)
+   ============================================================ */
+.drawer { position: fixed; inset: 0; z-index: 100; visibility: hidden; }
+.drawer.open { visibility: visible; }
+.drawer__overlay { position: absolute; inset: 0; background: rgba(34,31,27,.5); opacity: 0; transition: opacity var(--t); }
+.drawer.open .drawer__overlay { opacity: 1; }
+.drawer__panel { position: absolute; top: 0; right: 0; height: 100%; width: min(430px, 100%); background: var(--white); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 320ms var(--ease); box-shadow: var(--sh-3); }
+.drawer.open .drawer__panel { transform: none; }
+.drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; border-bottom: 1px solid var(--line); }
+.drawer__head h2 { font-size: 1.3rem; font-weight: 500; }
+.drawer__close { width: 40px; height: 40px; border-radius: var(--r-pill); display: grid; place-items: center; }
+.drawer__close:hover { background: var(--surface-alt); }
+.drawer__close svg { width: 22px; height: 22px; }
+
+/* corpo rola inteiro (frete + itens + combina com); rodapé fica fixo embaixo */
+.drawer__body { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.drawer__foot-slot { flex: 0 0 auto; }
+
+.freeship { padding: 15px 22px; background: var(--surface-alt); border-bottom: 1px solid var(--line); }
+.freeship__msg { font-size: .84rem; margin-bottom: 9px; }
+.freeship__msg b { color: var(--ink); font-weight: 600; }
+.freeship__msg.done { color: var(--success); font-weight: 600; }
+.freeship__msg svg { display: inline-block; width: 15px; height: 15px; vertical-align: -3px; margin-right: 3px; }
+.freeship__bar { height: 6px; border-radius: var(--r-pill); background: var(--line); overflow: hidden; }
+.freeship__fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--champagne), var(--champagne-dark)); border-radius: var(--r-pill); transition: width 420ms var(--ease); }
+
+.drawer__items { padding: 8px 22px; }
+.cart-item { display: grid; grid-template-columns: 66px 1fr auto; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line-2); }
+.cart-item__media { width: 66px; height: 66px; border-radius: var(--r-md); overflow: hidden; background: var(--surface-alt); display: grid; place-items: center; }
+.cart-item__media img { width: 100%; height: 100%; object-fit: cover; }
+.cart-item__media svg { width: 22px; height: 22px; color: var(--champagne-dark); opacity: .5; }
+.cart-item__name { font-family: var(--font-head); font-weight: 500; font-size: 1rem; }
+.cart-item__cat { font-size: .78rem; color: var(--ink-2); }
+.cart-item__price { font-family: var(--font-head); font-weight: 500; font-size: 1rem; text-align: right; }
+.cart-item__remove { font-size: .76rem; color: var(--ink-2); margin-top: 6px; }
+.cart-item__remove:hover { color: var(--error); }
+
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--r-sm); margin-top: 10px; }
+.qty button { width: 32px; height: 32px; display: grid; place-items: center; color: var(--ink); }
+.qty button:hover { background: var(--surface-alt); }
+.qty button svg { width: 15px; height: 15px; }
+.qty__val { min-width: 28px; text-align: center; font-weight: 600; font-size: .9rem; }
+
+.drawer__empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; padding: 40px; color: var(--ink-2); }
+.drawer__empty svg { width: 56px; height: 56px; color: var(--line); }
+
+.drawer__foot { border-top: 1px solid var(--line); padding: 20px 22px calc(20px + env(safe-area-inset-bottom)); background: var(--white); }
+.cart-total { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+.cart-total span { color: var(--ink-2); font-size: .9rem; }
+.cart-total b { font-family: var(--font-head); font-weight: 500; font-size: 1.5rem; }
+.drawer__note { font-size: .78rem; color: var(--ink-2); margin: 10px 0 16px; text-align: center; }
+
+.cart-cross { padding: 4px 22px 16px; }
+.cart-cross h3 { font-size: .66rem; color: var(--ink-2); font-weight: 600; margin-bottom: 12px; }
+.cart-cross__row { display: grid; grid-template-columns: 48px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; }
+.cart-cross__row img, .cart-cross__ph { width: 48px; height: 48px; border-radius: var(--r-sm); object-fit: cover; background: var(--surface-alt); }
+.cart-cross__name { font-size: .88rem; font-weight: 500; }
+.cart-cross__price { font-size: .82rem; color: var(--ink-2); }
+
+/* ============================================================
+   Formulários
+   ============================================================ */
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.field label { font-weight: 600; font-size: .82rem; }
+.field .req { color: var(--error); }
+.input, .select, textarea.input { width: 100%; min-height: 50px; padding: 13px 15px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--white); color: var(--ink); transition: border-color var(--t); }
+.input:focus, .select:focus, textarea.input:focus { border-color: var(--champagne-dark); box-shadow: none; }
+.input[aria-invalid="true"] { border-color: var(--error); }
+.field__error { color: var(--error); font-size: .8rem; display: none; }
+.field.invalid .field__error { display: block; }
+.field__hint { color: var(--ink-2); font-size: .8rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.form-row--3 { grid-template-columns: 1fr 1fr 1fr; }
+
+/* ============================================================
+   Toast
+   ============================================================ */
+.toast-wrap { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 200; display: flex; flex-direction: column; gap: 10px; align-items: center; width: min(92vw, 430px); }
+.toast { display: flex; align-items: center; gap: 12px; width: 100%; background: var(--ink); color: var(--white); padding: 14px 18px; border-radius: var(--r-md); box-shadow: var(--sh-3); font-size: .92rem; animation: toast-in 280ms var(--ease); }
+.toast svg { width: 20px; height: 20px; flex: 0 0 auto; color: var(--champagne); }
+.toast--error svg { color: #ff8b84; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* ============================================================
+   Estados
+   ============================================================ */
+.state { text-align: center; padding: clamp(44px, 8vw, 84px) 20px; color: var(--ink-2); }
+.state svg { width: 52px; height: 52px; color: var(--line); margin: 0 auto 18px; }
+.state h3 { color: var(--ink); font-family: var(--font-head); font-weight: 500; font-size: 1.4rem; margin-bottom: 8px; }
+.skeleton { position: relative; overflow: hidden; background: var(--surface-alt); }
+.skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent); animation: shimmer 1.3s infinite; }
+@keyframes shimmer { to { transform: translateX(100%); } }
+.card--skeleton .card__media { aspect-ratio: 1/1; }
+.card--skeleton .sk-line { height: 12px; border-radius: var(--r-sm); margin: 10px 18px 0; }
+
+/* ============================================================
+   Catálogo: padrão Vivara (loja.html)
+   ============================================================ */
+/* Cabeçalho da categoria */
+.plp-head { padding-top: calc(var(--nav-h) + 26px); padding-bottom: 16px; }
+.crumb { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--ink-2); margin-bottom: 14px; }
+.crumb a:hover { color: var(--champagne-dark); }
+.crumb i { font-style: normal; opacity: .45; }
+.plp-title { font-size: clamp(2rem, 4.6vw, 3rem); font-weight: 500; }
+.plp-title em { font-style: italic; color: var(--champagne-dark); }
+
+/* Pills de categoria (linha horizontal rolável) */
+/* overflow-y:hidden pelo mesmo motivo do .rail__track: sem isso a régua de
+   categorias também captura a roda do mouse e trava a rolagem da página. */
+.plp-cats { display: flex; gap: 10px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; padding: 4px 0 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.plp-cats::-webkit-scrollbar { display: none; }
+.pill { flex: 0 0 auto; display: inline-flex; align-items: center; height: 42px; padding: 0 20px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--white); font-family: var(--font-body); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); white-space: nowrap; cursor: pointer; transition: background var(--t), color var(--t), border-color var(--t); }
+.pill:hover { border-color: var(--ink); }
+.pill.is-active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+/* Barra de ferramentas (Filtrar / contagem / Ordenar) */
+/* flex-start + margin-left:auto na direita, e não `justify-content: space-between`.
+   Com space-between, quando a barra quebrava em duas linhas (entre ~560 e 700px)
+   o Filtrar e a busca ficavam grudados nas pontas opostas, com um rombo de 100px
+   no meio. Com auto o empurrão só existe enquanto tudo cabe numa linha. */
+.plp-toolbar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 18px 0 20px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.plp-toolbar__right { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+.plp-count { color: var(--ink-2); font-size: .86rem; }
+.btn-filter { display: inline-flex; align-items: center; gap: 9px; height: 44px; padding: 0 20px; border: 1px solid var(--line); border-radius: var(--r-pill); font-family: var(--font-body); font-weight: 600; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; transition: border-color var(--t), background var(--t); }
+.btn-filter:hover { border-color: var(--ink); }
+.btn-filter svg { width: 17px; height: 17px; }
+.btn-filter__n { display: none; place-items: center; min-width: 19px; height: 19px; padding: 0 5px; border-radius: var(--r-pill); background: var(--champagne); color: var(--ink); font-size: .64rem; font-weight: 700; letter-spacing: 0; }
+.btn-filter__n.on { display: inline-grid; }
+
+/* Busca dentro do catálogo. Sem font-size próprio de propósito: herda os 16px
+   do body, e abaixo disso o Safari do iPhone dá zoom sozinho ao focar o campo.
+   O padding da direita só abre espaço quando o "x" existe — e ele só existe
+   quando há texto, que é exatamente quando :placeholder-shown deixa de valer.
+   Sem isso o placeholder ficava cortado num celular de 360px. */
+.plp-search { position: relative; display: flex; align-items: center; flex: 1 1 190px; min-width: 0; max-width: 320px; }
+.plp-search input { width: 100%; height: 44px; padding: 0 42px 0 40px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--white); transition: border-color var(--t); }
+.plp-search input:placeholder-shown { padding-right: 14px; text-overflow: ellipsis; }
+.plp-search input::placeholder { color: var(--ink-2); }
+.plp-search input:hover, .plp-search input:focus { border-color: var(--ink); }
+.plp-search input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }  /* o "x" nativo do WebKit duplicaria o nosso */
+.plp-search > svg { position: absolute; left: 14px; width: 17px; height: 17px; color: var(--ink-2); pointer-events: none; }
+.plp-search__x { position: absolute; right: 5px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--r-pill); color: var(--ink-2); transition: background var(--t), color var(--t); }
+/* `display:grid` numa classe empata em especificidade com o `[hidden]` da folha
+   do navegador e, vindo depois, ganha: sem esta linha o "x" ficava aparecendo
+   com o campo vazio, mesmo com o atributo hidden certinho no DOM. */
+.plp-search__x[hidden] { display: none; }
+.plp-search__x:hover { background: var(--surface-alt); color: var(--ink); }
+.plp-search__x svg { width: 15px; height: 15px; }
+
+.sort { position: relative; display: inline-flex; align-items: center; }
+.sort__label { font-size: .8rem; color: var(--ink-2); margin-right: 8px; white-space: nowrap; }
+.sort__select { appearance: none; -webkit-appearance: none; height: 44px; padding: 0 38px 0 14px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--white); color: var(--ink); font-size: .8rem; font-weight: 600; cursor: pointer; transition: border-color var(--t); }
+.sort__select:hover { border-color: var(--ink); }
+.sort__ic { position: absolute; right: 14px; width: 15px; height: 15px; color: var(--ink-2); pointer-events: none; }
+
+/* Chips de filtros ativos */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.chips:empty { display: none; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 8px 6px 14px; border: 1px solid var(--line); border-radius: var(--r-pill); font-size: .8rem; background: var(--surface-alt); }
+.chip button { display: grid; place-items: center; width: 18px; height: 18px; border-radius: var(--r-pill); color: var(--ink-2); transition: background var(--t), color var(--t); }
+.chip button:hover { background: var(--ink); color: #fff; }
+.chip button svg { width: 12px; height: 12px; }
+
+/* "Carregar mais" */
+/* margin-bottom porque a grade termina aqui e o rodapé (fundo marfim) começa
+   logo em seguida — sem isso o botão encosta na divisa e fica torto. */
+.plp-more { display: flex; justify-content: center; margin-top: 44px; margin-bottom: clamp(48px, 7vw, 96px); }
+.plp-more[hidden] { display: none; }
+
+/* Cards do catálogo, estilo Vivara: sem borda, botão "Adicionar" no hover */
+.shop .card { border-color: transparent; background: transparent; overflow: visible; }
+.shop .card:hover { box-shadow: none; transform: none; }
+.shop .card__media { border-radius: var(--r-lg); border: 1px solid var(--line-2); }
+.shop .card:hover .card__media { box-shadow: var(--sh-2); }
+.shop .card__body { padding: 14px 4px 4px; }
+@media (hover: hover) {
+  .shop .card__add { opacity: 0; transform: translateY(6px); transition: opacity var(--t), transform var(--t), background var(--t), border-color var(--t); }
+  .shop .card:hover .card__add, .shop .card:focus-within .card__add { opacity: 1; transform: none; }
+}
+
+/* Painel de filtros (slide-over, mesmo padrão do carrinho) */
+.filterbox { position: fixed; inset: 0; z-index: 130; visibility: hidden; }
+.filterbox.open { visibility: visible; }
+.filterbox__overlay { position: absolute; inset: 0; background: rgba(34,31,27,.5); opacity: 0; transition: opacity var(--t); }
+.filterbox.open .filterbox__overlay { opacity: 1; }
+.filterbox__panel { position: absolute; top: 0; left: 0; height: 100%; width: min(380px, 100%); background: var(--white); display: flex; flex-direction: column; transform: translateX(-100%); transition: transform 320ms var(--ease); box-shadow: var(--sh-3); }
+.filterbox.open .filterbox__panel { transform: none; }
+.filterbox__head { display: flex; align-items: center; justify-content: space-between; padding: 20px 22px; border-bottom: 1px solid var(--line); }
+.filterbox__head h2 { font-size: 1.3rem; font-weight: 500; }
+.filterbox__body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 4px 22px 16px; }
+.filterbox__foot { display: flex; gap: 10px; border-top: 1px solid var(--line); padding: 16px 22px calc(16px + env(safe-area-inset-bottom)); }
+.filterbox__foot .btn { flex: 1; }
+
+.filter-group { padding: 20px 0; border-bottom: 1px solid var(--line-2); }
+.filter-group:last-child { border-bottom: none; }
+.filter-group > h3 { font-family: var(--font-body); text-transform: uppercase; letter-spacing: .14em; font-size: .7rem; font-weight: 600; color: var(--ink-2); margin-bottom: 10px; }
+.filter-list { display: flex; flex-direction: column; gap: 2px; }
+.filter-opt { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 9px 2px; font-size: .94rem; color: var(--ink-2); transition: color var(--t); }
+.filter-opt:hover { color: var(--ink); }
+.filter-opt__dot { width: 16px; height: 16px; flex: 0 0 auto; border: 1.5px solid var(--line); border-radius: var(--r-pill); transition: border-color var(--t), background var(--t); }
+.filter-opt.is-active { color: var(--ink); font-weight: 600; }
+.filter-opt.is-active .filter-opt__dot { border-color: var(--champagne-dark); background: radial-gradient(circle, var(--champagne-dark) 0 42%, transparent 46%); }
+.filter-opt__txt { flex: 1; }
+.filter-opt__n { font-size: .78rem; color: var(--ink-2); font-weight: 500; }
+.preco-range { width: 100%; accent-color: var(--champagne-dark); height: 4px; margin: 8px 0; cursor: pointer; }
+.preco-val { display: flex; align-items: baseline; justify-content: space-between; font-size: .84rem; color: var(--ink-2); }
+.preco-val b { font-family: var(--font-head); font-weight: 500; font-size: 1.1rem; color: var(--ink); }
+
+/* Abaixo de ~700px a barra não cabe numa linha só. Em vez de deixar o flex
+   decidir onde quebrar, a contagem e a ordenação tomam a linha inteira de baixo
+   e sobra a de cima pro Filtrar com a busca. */
+@media (max-width: 720px) {
+  .plp-toolbar__right { width: 100%; justify-content: space-between; }
+}
+
+@media (max-width: 560px) {
+  .sort__label { display: none; }
+  /* Pedido da Luana (04/08/2026): no celular a busca ocupa o espaço vazio ao
+     lado do Filtrar, em vez de obrigar a abrir o menu pra procurar peça. */
+  .plp-toolbar { gap: 10px; }
+  .plp-toolbar__right { gap: 10px; }
+  /* flex-basis 0 (e não os 190px do desktop) porque o flex quebra a linha pela
+     base, antes de encolher: com 190px o campo caía sozinho numa terceira linha
+     em tela de 320 e 360px, que é justo onde o espaço é mais caro. */
+  .plp-search { max-width: none; flex-basis: 0; }
+  .btn-filter { padding: 0 15px; }
+}
+
+/* Telas de 320px (SE antigo, Fold fechado): "Buscar peça" pedia 95px e só
+   sobravam 87. Estreitar a lupa e o Filtrar devolve 12px e o texto fecha
+   inteiro em vez de virar "Buscar pe…". */
+@media (max-width: 359px) {
+  .plp-search input { padding-left: 34px; }
+  .plp-search input:placeholder-shown { padding-right: 10px; }
+  .plp-search > svg { left: 11px; width: 16px; height: 16px; }
+  .btn-filter { padding: 0 12px; }
+}
+
+/* ============================================================
+   Produto (produto.html)
+   ============================================================ */
+.pdp { padding-top: calc(var(--nav-h) + 22px); padding-bottom: clamp(48px, 7vw, 96px); }
+.pdp .crumb { margin-bottom: 24px; }
+.pdp__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 4vw, 64px); align-items: start; }
+/* align-self:start é o que dá altura própria à coluna: esticada até o fim da
+   grade, ela não teria pra onde grudar. O top abre folga da navbar fixa. */
+.pdp__gallery { position: sticky; top: calc(var(--nav-h) + 24px); align-self: start; }
+/* A foto do produto NÃO usa uma caixa fixa: o acervo tem duas famílias bem
+   diferentes (medido em 03/08/2026, 99 fotos), 77 em 3:4 de celular e 20 em
+   9:16 de print de story. Uma caixa fixa corta uma das duas, e era isso que
+   decepava o pingente dos colares no celular.
+   A moldura acompanha a foto, presa entre 1:1 e 3:4 (quadrada continua
+   quadrada, mais alta que isso para em 3:4). Quem escreve o `--foto` é o JS,
+   que faz essa conta em pagina-produto.js. O 3/4 do fallback é a proporção
+   mais comum e reserva o espaço antes de a foto chegar, sem a página pular.
+   `cover` só faz diferença nas fotos mais altas que 3:4, que é onde a moldura
+   deixa de bater com o arquivo. Conferi as 20 do acervo uma a uma antes de
+   escolher: são todas brincos centralizados em fundo liso, com sobra grande em
+   cima e embaixo, e o corte de 25% pelo centro não encosta em nenhuma peça.
+   Com `contain` sobrava faixa cinza dos lados e a peça ficava menor.
+   Se um dia entrar foto alta com a peça perto da borda, é aqui que quebra.
+   O card da coleção continua quadrado de propósito (ver .card__media). */
+.pdp__media { position: relative; aspect-ratio: var(--foto, 3 / 4); border-radius: var(--r-xl); overflow: hidden; background: var(--surface-alt); border: 1px solid var(--line-2); }
+.pdp__media img { width: 100%; height: 100%; object-fit: cover; }
+.pdp__media-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--champagne-dark); }
+.pdp__media-fallback svg { width: 72px; height: 72px; opacity: .5; }
+.pdp__soldout { position: absolute; top: 16px; left: 16px; background: var(--ink); color: var(--white); font-family: var(--font-body); text-transform: uppercase; letter-spacing: .14em; font-weight: 600; font-size: .66rem; padding: 8px 14px; border-radius: var(--r-sm); }
+
+/* ---------- Miniaturas das outras fotos da peça ----------
+   O .pdp__stage embrulha a foto grande + o aviso "i". Ele existe porque o
+   aviso é absolute e se ancora no contêiner posicionado mais próximo: com as
+   miniaturas dentro do .pdp__gallery, ancorar no gallery jogaria a bolinha em
+   cima da fileira. Aqui ela volta a morar no canto da FOTO.
+   A tira só é montada quando a peça tem 2 fotos ou mais (ver pagina-produto.js).
+   `overflow-x:auto` porque peça com 5 ou 6 fotos passa da largura da coluna no
+   celular: sem isso a fileira empurraria o layout na horizontal. */
+.pdp__stage { position: relative; }
+.pdp__thumbs { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.pdp__thumb {
+  flex: 0 0 auto; width: 66px; height: 66px; padding: 0; overflow: hidden;
+  border: 1px solid var(--line-2); border-radius: var(--r-md);
+  background: var(--surface-alt); cursor: pointer; opacity: .62;
+  transition: opacity var(--t), border-color var(--t);
+}
+.pdp__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pdp__thumb:hover { opacity: 1; }
+.pdp__thumb.is-active { opacity: 1; border-color: var(--champagne); }
+.pdp__thumb:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* ---------- Aviso sobre a foto (bolinha "i", canto inferior esquerdo) ----------
+   Mora no .pdp__stage e NÃO dentro do .pdp__media de propósito: a media tem
+   `overflow:hidden` pra arredondar a foto, e o painel de texto sairia cortado.
+   O stage é `position: relative` sempre, no desktop e no celular, e é ele o
+   contêiner de posicionamento daqui. Antes esse papel era do .pdp__gallery,
+   que passou a terminar depois das miniaturas em 25/08/2026. */
+.pdp__info { position: absolute; left: 14px; bottom: 14px; z-index: 4; }
+
+.pdp__info-btn {
+  position: relative; width: 34px; height: 34px; border-radius: var(--r-pill);
+  display: grid; place-items: center; color: var(--ink);
+  /* sombra própria, mais forte que --sh-1: a bolinha fica sobre a foto e as
+     peças da Luar são fotografadas em fundo claro, onde a borda some sozinha */
+  background: rgba(255,255,255,.92); border: 1px solid rgba(34,31,27,.10);
+  box-shadow: 0 2px 10px rgba(34,31,27,.16);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  transition: background var(--t), color var(--t), border-color var(--t), transform var(--t);
+  /* no celular não existe hover: o retorno do toque é o :active, não o realce
+     cinza padrão do Android (o resto do site também o desliga, ver .btn) */
+  -webkit-tap-highlight-color: transparent;
+}
+.pdp__info-btn:active, .pdp__info-x:active { transform: scale(.92); }
+/* Alvo de toque de 44px sem engordar o círculo (Apple HIG / Material). */
+.pdp__info-btn::before { content: ""; position: absolute; inset: -5px; border-radius: var(--r-pill); }
+.pdp__info-btn svg { width: 18px; height: 18px; }
+/* o :focus-visible global arredonda em --r-sm e quadraria a bolinha */
+.pdp__info-btn:focus-visible, .pdp__info-x:focus-visible { border-radius: var(--r-pill); }
+.pdp__info-btn:hover,
+.pdp__info.is-open .pdp__info-btn { background: var(--ink); border-color: var(--ink); color: var(--white); }
+
+.pdp__info-panel {
+  position: absolute; left: 0; bottom: calc(100% + 12px);
+  /* medida em vw porque o contêiner é a própria bolinha de 34px: % aqui não serve */
+  width: min(340px, calc(100vw - 72px));
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--sh-2); padding: 15px 17px;
+  color: var(--ink-2); font-size: .8rem; line-height: 1.7; text-align: left;
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity var(--t), transform var(--t), visibility var(--t);
+}
+.pdp__info.is-open .pdp__info-panel { opacity: 1; visibility: visible; transform: none; }
+/* Ponte invisível sobre os 12px de folga: sem ela o ponteiro "sai" do bloco no
+   caminho do botão até o painel e o mouseleave fecha tudo na cara do usuário. */
+.pdp__info-panel::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px; }
+
+/* Fecha no celular. Flutua à direita pra primeira linha contornar o X em vez
+   de reservar uma faixa vazia no topo do painel. */
+.pdp__info-x {
+  float: right; width: 30px; height: 30px; margin: -4px -6px 2px 8px;
+  display: grid; place-items: center; color: var(--ink-2); border-radius: var(--r-pill);
+  transition: background var(--t), color var(--t), transform var(--t);
+  -webkit-tap-highlight-color: transparent;
+}
+.pdp__info-x:hover { background: var(--surface-alt); color: var(--ink); }
+.pdp__info-x svg { width: 15px; height: 15px; }
+
+/* No desktop quem fecha é tirar o mouse, então o X só aparece quando o painel
+   foi fixado por clique. No celular (sem hover) ele fica sempre visível. */
+@media (hover: hover) and (pointer: fine) {
+  .pdp__info:not(.is-pinned) .pdp__info-x { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdp__info-panel { transition: none; transform: none; }
+  .pdp__info-btn, .pdp__info-x { transition: none; }
+  .pdp__info-btn:active, .pdp__info-x:active { transform: none; }
+}
+
+.pdp__cat { font-family: var(--font-body); text-transform: uppercase; letter-spacing: .14em; font-size: .7rem; font-weight: 600; color: var(--ink-2); }
+.pdp__title { font-size: clamp(2rem, 3.8vw, 2.8rem); font-weight: 500; margin: 10px 0 16px; }
+.pdp__price-row { display: flex; align-items: baseline; gap: 12px; }
+.pdp__price { font-family: var(--font-head); font-weight: 500; font-size: 2rem; }
+.pdp__parc { color: var(--ink-2); font-size: .95rem; margin-top: 6px; }
+.pdp__material { margin-top: 18px; }
+.pdp__desc { color: var(--ink-2); margin: 22px 0 4px; line-height: 1.75; max-width: 54ch; }
+.pdp__buy { display: flex; gap: 12px; align-items: stretch; margin: 24px 0; flex-wrap: wrap; }
+.pdp__buy .btn { flex: 1; min-width: 220px; }
+.qty--lg { margin-top: 0; height: 56px; }
+.qty--lg button { width: 46px; height: 100%; }
+.qty--lg .qty__val { min-width: 42px; font-size: 1rem; }
+.pdp__trust { display: flex; flex-direction: column; gap: 13px; padding-top: 22px; border-top: 1px solid var(--line-2); }
+.pdp__trust li { display: flex; align-items: center; gap: 12px; font-size: .9rem; color: var(--ink); }
+.pdp__trust svg { width: 20px; height: 20px; color: var(--champagne-dark); flex: 0 0 auto; }
+.pdp__acc { margin-top: 24px; }
+.pdp__acc details { border-top: 1px solid var(--line-2); }
+.pdp__acc details:last-child { border-bottom: 1px solid var(--line-2); }
+.pdp__acc summary { display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 16px 2px; font-weight: 600; font-size: .92rem; list-style: none; }
+.pdp__acc summary::-webkit-details-marker { display: none; }
+.pdp__acc summary::after { content: "+"; color: var(--ink-2); font-size: 1.4rem; line-height: 1; font-weight: 400; }
+.pdp__acc details[open] summary::after { content: "\2212"; }
+.pdp__acc p { padding: 0 2px 18px; color: var(--ink-2); font-size: .92rem; line-height: 1.75; max-width: 60ch; }
+
+@media (max-width: 860px) {
+  .pdp__grid { grid-template-columns: 1fr; gap: 24px; }
+  /* `top: auto` é obrigatório junto do position: o `top` da regra de cima
+     existe pro sticky do desktop e o static o ignorava; em relative ele volta a
+     valer e desce a foto 102px por cima do título da peça. (O aviso "i" já não
+     se ancora aqui: o contêiner dele é o .pdp__stage.) */
+  .pdp__gallery { position: relative; top: auto; }
+  .pdp__buy .btn { min-width: 0; }
+}
+
+/* ============================================================
+   O CSS do checkout e da página de status do pedido saiu em
+   31/07/2026, junto com a compra online. Nenhuma classe dele
+   ficou em uso — foi conferido seletor por seletor contra o HTML
+   e o JS antes de remover.
+   ============================================================ */
+
+/* ============================================================
+   Páginas de conteúdo / legais (devolucoes.html, etc.)
+   ============================================================ */
+.legal { padding-top: calc(var(--nav-h) + 30px); padding-bottom: clamp(48px, 7vw, 96px); }
+.legal__wrap { max-width: 760px; margin-inline: auto; }
+.legal__head { margin-bottom: 34px; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+.legal__head h1 { font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 500; margin-top: 10px; }
+.legal__head h1 em { font-style: italic; color: var(--champagne-dark); }
+.legal__meta { font-size: .82rem; color: var(--ink-2); margin-top: 12px; }
+.legal__intro { font-size: 1.08rem; color: var(--ink); line-height: 1.7; margin-bottom: 8px; }
+.legal h2 { font-size: clamp(1.4rem, 2.6vw, 1.7rem); font-weight: 500; margin: 40px 0 8px; }
+.legal h3 { font-family: var(--font-body); font-size: 1.08rem; font-weight: 600; margin: 26px 0 8px; }
+.legal p { color: var(--ink-2); line-height: 1.75; margin-bottom: 14px; }
+.legal strong { color: var(--ink); font-weight: 600; }
+.legal ul, .legal ol { margin: 0 0 16px; padding-left: 0; }
+.legal li { position: relative; color: var(--ink-2); line-height: 1.7; margin-bottom: 9px; padding-left: 24px; }
+.legal ul li::before { content: ""; position: absolute; left: 5px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: var(--champagne); }
+.legal ol { counter-reset: passo; }
+.legal ol li { padding-left: 40px; margin-bottom: 14px; }
+.legal ol li::before { counter-increment: passo; content: counter(passo); position: absolute; left: 0; top: 1px; width: 26px; height: 26px; border-radius: var(--r-pill); background: var(--champagne-soft); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: .8rem; display: grid; place-items: center; }
+.legal hr { border: none; border-top: 1px solid var(--line); margin: 34px 0; }
+.legal__note { background: var(--surface-alt); border-left: 3px solid var(--champagne); border-radius: var(--r-md); padding: 16px 18px; margin: 22px 0; }
+.legal__note p { color: var(--ink); margin: 0; }
+.legal__tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); text-transform: uppercase; letter-spacing: .14em; font-size: .7rem; font-weight: 600; padding: 6px 14px; border-radius: var(--r-pill); }
+.legal__tag--ok { background: #e4f2ea; color: var(--success); }
+.legal__tag--no { background: #f6efe6; color: var(--champagne-dark); }
+
+/* ============================================================
+   Reveal
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .card:hover, .kit:hover, .cat:hover { transform: none; }
+  .card__media img, .toast { animation: none; transition: none; }
+}
+
+/* ============================================================
+   Responsivo
+   ============================================================ */
+@media (max-width: 1024px) {
+  .grid--products { grid-template-columns: repeat(3, 1fr); }
+  .cats { grid-template-columns: repeat(2, 1fr); }
+  .perks { grid-template-columns: repeat(2, 1fr); }
+  .footer__top { grid-template-columns: 1.4fr 1fr 1fr; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 860px) {
+  .nav__links, .nav__search { display: none; }
+  .nav__toggle { display: inline-flex; }
+  .nav__logo--left { display: none; }                 /* no mobile o logo fica sempre central */
+  .nav__logo--center img { height: 42px; }
+  .nav.scrolled .nav__logo--center { opacity: 1; pointer-events: auto; }
+  .nav.scrolled .nav__logo--center img { height: 32px; }
+  .nav.scrolled .nav__logo--center .logo-white { display: none; }   /* na barrinha branca, logo dourada */
+  .nav.scrolled .nav__logo--center .logo-gold { display: block; }
+  .kits, .voices { grid-template-columns: 1fr; }
+  /* Mobile: banner de fundo (joias embaixo), texto branco no topo.
+     O véu é ancorado em px, não em %. O bloco de texto tem altura quase fixa
+     (título + parágrafo), então em % ele escorrega pra fora do véu num celular
+     alto e sobra escuro num baixo — em px o véu acompanha o texto.
+     O topo caiu de .66 pra .50: a foto ali em cima é clara (rgb 232,197,164),
+     e .50 já dá 5:1 de contraste com branco puro. Abaixo de .46 o parágrafo
+     deixa de fechar os 4.5:1 — é esse o piso, não gosto.
+     rgba(...,0) no lugar de `transparent`: `transparent` é preto transparente,
+     e a interpolação até ele suja o meio do degradê. */
+  .hero { background: #17130f; }
+  .hero__bg { display: block; position: absolute; inset: 0; background: url("fundo-hero-mobile.jpg") center top / cover no-repeat; }
+  .hero__bg::after { content: ""; position: absolute; inset: 0; background:
+    /* véu do texto: platô até o fim do parágrafo e queda longa em muitas
+       paradas. Com 3 ou 4 paradas a queda virava uma parede escura no meio
+       da foto — era o que fazia o degradê parecer "duro". */
+    linear-gradient(180deg,
+      rgba(22,19,16,.50) 0,
+      rgba(22,19,16,.50) 230px,
+      rgba(22,19,16,.48) 290px,
+      rgba(22,19,16,.46) 330px,
+      rgba(22,19,16,.40) 380px,
+      rgba(22,19,16,.32) 430px,
+      rgba(22,19,16,.24) 480px,
+      rgba(22,19,16,.16) 530px,
+      rgba(22,19,16,.09) 580px,
+      rgba(22,19,16,.04) 630px,
+      rgba(22,19,16,0)   690px),
+    /* base: costura a hero na faixa preta (--ink) que vem logo abaixo. Sem
+       ela a foto dourada encosta direto no preto e a emenda fica seca. */
+    linear-gradient(0deg,
+      rgba(22,19,16,.72) 0,
+      rgba(22,19,16,.55) 34px,
+      rgba(22,19,16,.38) 78px,
+      rgba(22,19,16,.23) 124px,
+      rgba(22,19,16,.12) 170px,
+      rgba(22,19,16,.05) 214px,
+      rgba(22,19,16,0)   256px); }
+  .hero__inner { min-height: 100vh; min-height: 100dvh; align-items: flex-start; padding-block: calc(var(--nav-h) + 28px) 34px; }
+  .hero__content { max-width: 560px; }
+  .hero__title { font-size: clamp(2rem, 7.6vw, 2.9rem); margin: 14px 0 16px; }
+  /* branco puro no lugar de .82/.84: com o véu mais leve, o texto rebaixado
+     não fecha mais os 4.5:1. A sombra é só respiro, o contraste vem do véu. */
+  .hero__eyebrow, .hero__lead { color: #fff; }
+  .hero__eyebrow, .hero__title, .hero__lead { text-shadow: 0 1px 20px rgba(22,19,16,.4); }
+  /* borda 50% branca desaparece sobre foto clara: no mobile o contorno ganha
+     fundo próprio em vez de contar com o véu */
+  .hero .btn--outline { --btn-bd: rgba(255,255,255,.72); background: rgba(22,19,16,.34); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .hero .btn--outline:hover { --btn-bd: #fff; background: rgba(22,19,16,.46); }
+  .hero__actions { margin-top: 26px; }
+  .hero__trust { display: none; }
+  .mobile-menu { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+  .grid--3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  :root { --nav-h: 62px; }
+  .grid--products { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .cats { grid-template-columns: repeat(2, 1fr); }
+  .perks { grid-template-columns: 1fr 1fr; }
+  .grid--3 { grid-template-columns: 1fr; }
+  .footer__top { grid-template-columns: 1fr 1fr; }
+  .cta-band__form { flex-direction: column; }
+  .form-row, .form-row--3 { grid-template-columns: 1fr; }
+  .card__body { padding: 14px 14px 16px; }
+
+  /* Hero: "Explorar a loja" + "Ver kits" somam ~400px e não cabem nos ~350px
+     úteis da tela. Lado a lado eles quebravam com o segundo botão sozinho e
+     torto na linha de baixo — empilhados ficam intencionais e com alvo maior. */
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn { width: 100%; padding-inline: 20px; }
+
+  /* Card em 2 colunas sobra ~140px de largura útil. Nesse espaço o "Adicionar"
+     com padding de desktop estoura e o nome em 1.12rem quebra em 3 linhas. */
+  .card__name { font-size: 1.02rem; }
+  .card__price { font-size: 1.08rem; }
+  .card__installment { font-size: .74rem; }
+  .card__add { width: 100%; padding-inline: 10px; }
+
+  /* iOS dá zoom na página ao focar select/input com fonte < 16px */
+  .sort__select { font-size: 16px; }
+
+  /* 32px é alvo pequeno demais pra ajustar quantidade com o dedo */
+  .qty button { width: 40px; height: 40px; }
+
+  /* o toast nascia em cima do botão flutuante do WhatsApp (z-index 200 vs 90),
+     tampando o botão enquanto estivesse na tela */
+  .toast-wrap { bottom: calc(88px + env(safe-area-inset-bottom)); }
+
+  /* qty + "Adicionar ao carrinho" na mesma linha deixam ~200px pro botão,
+     e o rótulo não cabe. Botão vai pra linha inteira embaixo do seletor. */
+  .pdp__buy .btn { flex: 1 1 100%; }
+}
+
+/* WhatsApp flutuante */
+.wa-float { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 90; width: 56px; height: 56px; border-radius: var(--r-pill); background: #25d366; color: #fff; display: grid; place-items: center; box-shadow: var(--sh-3); transition: transform var(--t); }
+.wa-float:hover { transform: scale(1.06); }
+.wa-float svg { width: 30px; height: 30px; }
+
+/* ============================================================
+   Página de Kits (kits.html)
+   Reaproveita o card .kit da home — aqui só o que a página tem a mais.
+   Os kits vêm da view `kits_site`; ver supabase/migrations/0016_kits.sql.
+   ============================================================ */
+
+.plp-intro { max-width: 60ch; margin-top: 10px; color: var(--ink-2); font-size: .98rem; line-height: 1.65; }
+
+/* A home tem exatamente 3 kits (grid fixo de 3 colunas). Aqui a lista é
+   aberta, então o grid é fluido — senão o 4o kit espremeria a linha. */
+.kits--pagina { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin: 18px 0 64px; }
+
+/* O que vem dentro do kit. Some do fluxo quando o kit não tem peça
+   listada, pra não abrir buraco entre o subtítulo e o preço. */
+.kit__pecas { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.kit__pecas li { position: relative; padding-left: 14px; color: var(--ink-2); font-size: .88rem; line-height: 1.5; }
+.kit__pecas li::before { content: ""; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--champagne); }
+.kit__pecas b { color: var(--ink); font-weight: 600; }
+
+/* Esgotado ocupa o lugar do botão. Texto, não só cor — daltônico também
+   precisa entender que não dá pra comprar. */
+.kit__esgotado { font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+
+.plp-empty { max-width: 46ch; margin: 28px 0 72px; color: var(--ink-2); font-size: 1rem; line-height: 1.7; }
+
+@media (max-width: 560px) {
+  /* auto-fill com minmax(280px) já quebra sozinho, mas em telas bem
+     estreitas o minmax force uma coluna e evita overflow horizontal. */
+  .kits--pagina { grid-template-columns: 1fr; }
+}
+
+/* Rodapé de seção: o "ver todos" centralizado abaixo do grid.
+   Usado sob os kits em destaque da home. */
+.sec-foot { display: flex; justify-content: center; margin-top: clamp(28px, 4vw, 44px); }

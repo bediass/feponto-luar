@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# checkout e pedido sao paginas-lapide (a venda fecha no WhatsApp desde 31/07/2026).
+# Elas NAO entram aqui como Disallow de proposito: as duas ja trazem
+# <meta name="robots" content="noindex"> no HTML, e pra o Google obedecer esse
+# noindex ele precisa poder baixar a pagina. Bloquear no robots.txt teria o efeito
+# oposto, deixaria as duas presas no indice sem nunca serem relidas.
+
+Sitemap: https://luaracessoriosbh.com.br/sitemap.xml

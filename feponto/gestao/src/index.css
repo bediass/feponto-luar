@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Marca — escala grafite / prata (preto, branco e cinza) */
+  --color-marca-50: #f5f5f5;
+  --color-marca-100: #e7e7e9;
+  --color-marca-200: #d4d4d8;
+  --color-marca-300: #a1a1aa;
+  --color-marca-400: #71717a;
+  --color-marca-500: #52525b;
+  --color-marca-600: #27272a;
+  --color-marca-700: #18181b;
+  --color-marca-800: #111112;
+  --color-marca-900: #09090b;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: #fafafa;
+  color: #18181b;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Fotos do produto: no toque, sem hover e sem arrastar =====
+   No celular as fotos ficavam intocáveis: o arrastar-e-soltar do HTML5 não
+   dispara em tela de toque, e os botões (excluir, capa, baixar) viviam em
+   `group-hover`, que o Tailwind só aplica em aparelho com ponteiro. Resultado:
+   nem reordenar nem excluir.
+
+   Aqui a grade vira LISTA quando não há hover — uma foto por linha, miniatura
+   menor e uma barra de botões de verdade (44px) ao lado. No desktop nada muda:
+   a barra some e continua o arrastar-e-soltar com os botões no hover.
+
+   Tamanho e direção moram aqui (e não em utilitário do Tailwind) de propósito:
+   as duas regras teriam a mesma especificidade e quem ganhasse dependeria da
+   ordem/camada do CSS gerado. Aqui não há disputa. */
+.fotos-grade {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.foto-item {
+  display: flex;
+}
+.foto-thumb {
+  width: 6rem;
+  height: 6rem;
+}
+.foto-acoes,
+.foto-legenda {
+  display: none;
+}
+@media (hover: none), (pointer: coarse) {
+  .fotos-grade {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .foto-item {
+    width: 100%;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .foto-thumb {
+    width: 4.5rem;
+    height: 4.5rem;
+    cursor: default;
+  }
+  .foto-acoes {
+    display: flex;
+  }
+  .foto-legenda {
+    display: block;
+  }
+  /* botão de excluir e barra de baixar/capa são só do hover */
+  .foto-so-hover {
+    display: none !important;
+  }
+}
+
+/* ===== Etiqueta de joia — 9 × 1,2 cm, dobra ao meio ===== */
+.etiqueta {
+  position: relative; /* âncora do posicionamento da marca */
+  display: flex;
+  width: 9cm;
+  height: 1.2cm;
+  color: #18181b;
+  background: #fff;
+  border: 1px solid #e4e4e7; /* moldura só na prévia */
+  break-inside: avoid;
+  overflow: hidden;
+}
+.etiqueta-info {
+  box-sizing: border-box;
+  width: 4.5cm;
+  height: 100%;
+  padding: 0.4mm 2mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.3mm;
+}
+/* A marca fica onde estava o tracejado do vinco: 4,5 cm da esquerda, ou seja
+   exatamente na dobra. É a borda ESQUERDA dela que encosta nos 4,5 cm — se
+   fosse centrada ali, a dobra passaria pelo meio do monograma.
+   Posição absoluta e não padding: o 4,5 cm é medido da borda esquerda da
+   etiqueta, então mexer na largura da metade de informação não desloca a marca. */
+.etiqueta-logo {
+  position: absolute;
+  left: 4.5cm;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.etiqueta-logo-simbolo {
+  height: 9mm;
+  flex: none;
+}
+.etiqueta-nome {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.etiqueta-cor {
+  font-size: 7px;
+  line-height: 1.1;
+  color: #3f3f46;
+}
+.etiqueta-meta {
+  display: flex;
+  gap: 3mm;
+  font-size: 7px;
+  line-height: 1.1;
+  color: #52525b;
+}
+
+/* O destino do portal só existe pra impressão; na tela fica fora do caminho. */
+#raiz-impressao {
+  display: none;
+}
+
+/* ===== Impressão das etiquetas — Zebra ZD220, 203 dpi, térmica direta =====
+
+   O app inteiro sai com `display: none` e só o #raiz-impressao é impresso.
+   A abordagem anterior era esconder tudo com `visibility: hidden` e devolver o
+   modal ao fluxo com `position: static`. Não funciona aqui por dois motivos
+   somados: `visibility: hidden` esconde mas NÃO libera o espaço, então a
+   página do estoque continuava empurrando a etiqueta pra baixo; e o modal,
+   voltando ao fluxo, caía dentro do `overflow-hidden` do Layout e do
+   `overflow-y-auto` do <main>, que numa folha de 12mm de altura cortavam
+   qualquer coisa. Dava uma folha em branco.
+
+   Sobre a térmica: a ZD220 imprime 1 bit, sem cinza. Todo tom intermediário
+   vira trama pontilhada ou desaparece, então na impressão tudo vai a #000.
+   A 203 dpi (8 pontos/mm) fonte abaixo de ~7px não fecha traço legível — os
+   corpos sobem um pouco em relação à prévia de tela.
+   ========================================================================== */
+@media print {
+  /* height:100% de html/body/#root vale a folha inteira; na impressão isso só
+     atrapalha a paginação. */
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0;
+    background: #fff;
+  }
+  #root {
+    display: none !important;
+  }
+  #raiz-impressao {
+    display: block !important;
+  }
+  .nao-imprimir {
+    display: none !important;
+  }
+
+  .area-impressao {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  .etiqueta {
+    border: none !important;
+    margin: 0 !important;
+    background: #fff !important;
+    /* impede o Chrome de "ajustar" cor e de descartar fundo */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    break-after: page;
+  }
+  .etiqueta:last-child {
+    break-after: auto;
+  }
+
+  /* 1 bit: sem cinza. Tudo preto puro. */
+  .etiqueta,
+  .etiqueta-nome,
+  .etiqueta-cor,
+  .etiqueta-meta,
+  .etiqueta-logo-simbolo {
+    color: #000 !important;
+  }
+  .etiqueta-logo-simbolo svg * {
+    stroke: #000 !important;
+  }
+
+  /* corpos um degrau acima pra fechar traço a 203 dpi */
+  .etiqueta-nome {
+    font-size: 9px !important;
+  }
+  .etiqueta-cor,
+  .etiqueta-meta {
+    font-size: 7.5px !important;
+  }
+
+  /* mm, não cm: é a unidade do estoque de etiqueta e do driver da Zebra.
+     90 × 12 mm = 720 × 96 pontos a 203 dpi. */
+  @page {
+    size: 90mm 12mm;
+    margin: 0;
+  }
+}
